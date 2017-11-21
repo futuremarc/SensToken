@@ -1,5 +1,5 @@
-var SensysToken = artifacts.require("./SensysToken.sol");
+var SensToken = artifacts.require("SensToken");
 
 module.exports = function(deployer) {
-  deployer.deploy(SensysToken);
+  deployer.deploy(SensToken);
 };
