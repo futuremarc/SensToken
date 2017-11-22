@@ -4,11 +4,12 @@ import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 
 contract SensToken is StandardToken {
   address public owner = msg.sender;
-  string public constant name = 'SensToken';
-  string public constant symbol = 'SENS';
-  uint32 public constant decimals = 18;
-  uint256 public constant MAX_SUPPLY = 1000000000;
+  string public constant NAME = 'Sens Token';
+  string public constant SYMBOL = 'SENS';
+  uint32 public constant DECIMALS = 18;
+  uint256 public constant ETHER_CAP = 1000000 ether;
   uint32 public constant RATE = 500;
+  uint256 public MAX_TOKENS = ETHER_CAP.mul(RATE);
   uint32 public constant INITIAL_SUPPLY = 0;
 
   event CreatedTokens(address sender, uint256 balance, uint256 totalSupply);
@@ -21,11 +22,11 @@ contract SensToken is StandardToken {
   modifier areTokensLeft(){
     uint256 tokens = msg.value.mul(RATE);
     uint256 newTotal = totalSupply.add(tokens);
-    require(newTotal <= MAX_SUPPLY);
+    require(newTotal <= MAX_TOKENS);
     _;
   }
 
-  function createTokens() public payable hasValue {
+  function createTokens() public payable hasValue areTokensLeft {
       uint256 tokens = msg.value.mul(RATE);
       balances[msg.sender] = balances[msg.sender].add(tokens);
       totalSupply = totalSupply.add(tokens);
