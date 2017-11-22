@@ -9,6 +9,11 @@
   height: 80px;
 }
 
+.Main-info{
+  border: #fff 1px solid;
+  border-radius: 5px;
+}
+
 .App-header {
   height: 80px;
   padding: 5px;

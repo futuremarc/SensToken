@@ -1,10 +1,12 @@
 import React from 'react';
-import {createStore,applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import rootReducer from './reducers/rootReducer';
 import createSagaMiddleware from 'redux-saga';
+import {createLogger} from 'redux-logger';
 
 // const sagaMiddleware = createSagaMiddleware()
-// const composeSetup = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+const composeSetup = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+const logger = createLogger();
 
 const defaultState = {
   tokens: {
@@ -18,8 +20,7 @@ const defaultState = {
   }
 };
 
-const store = createStore(rootReducer, defaultState);
-//composeSetup(applyMiddleware(sagaMiddleware)
+const store = createStore(rootReducer, defaultState, composeSetup(applyMiddleware(logger)));
 //sagaMiddleware.run(IndexSagas);
 
 export default store;

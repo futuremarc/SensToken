@@ -112,9 +112,7 @@ class App extends React.Component {
         maxSupply = await tokenInstance.MAX_SUPPLY().then(res => {
           return res.c[0];
         })
-
         editTokens({maxSupply, totalSupply, rate})
-        
       })()
     });
   }
@@ -137,8 +135,11 @@ class App extends React.Component {
       <div className="App">
         <Header logo={logo} title="SensToken"/>
         <Intro text="Make Sens of the World"/>
+
         <Account {...this.props}/>
-        <Info {...this.props}/>
+        <div className="Main-info">
+          <Info {...this.props}/>
+        </div>
         <Purchase/>
       </div>
     );
