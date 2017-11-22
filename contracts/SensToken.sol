@@ -3,7 +3,7 @@ pragma solidity ^0.4.4;
 import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 
 contract SensToken is StandardToken {
-  address public constant owner = msg.sender;
+  address public owner = msg.sender;
   string public constant name = 'SensToken';
   string public constant symbol = 'SENS';
   uint32 public constant decimals = 18;
@@ -25,7 +25,7 @@ contract SensToken is StandardToken {
     _;
   }
 
-  function createTokens() payable hasValue {
+  function createTokens() public payable hasValue {
       uint256 tokens = msg.value.mul(RATE);
       balances[msg.sender] = balances[msg.sender].add(tokens);
       totalSupply = totalSupply.add(tokens);
@@ -33,11 +33,11 @@ contract SensToken is StandardToken {
       owner.transfer(msg.value);
   }
 
-  function() payable {
+  function() public payable {
       createTokens();
   }
 
-  function SensToken() {
+  function SensToken() public {
     totalSupply = INITIAL_SUPPLY;
   }
 

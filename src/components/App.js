@@ -34,7 +34,7 @@ class App extends React.Component {
         <div className="Main-info">
           <Info {...this.props}/>
         </div>
-        <Purchase/>
+        <Purchase {...this.props} form="''"/> {/* override form w/empty string for redux-form*/}
       </div>
     );
   }

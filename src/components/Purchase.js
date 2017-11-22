@@ -4,7 +4,6 @@ import {Field, reduxForm, SubmissionError} from 'redux-form';
 import {BUY_TOKENS} from '../constants';
 import Aux from 'react-aux';
 
-
 class Purchase extends React.Component{
 
   constructor(props){
@@ -15,16 +14,18 @@ class Purchase extends React.Component{
 
   amountInput({input, meta: {touched, error}, ...custom}){
 
-    const hasError = touched && error !== undefined;
+    const hasError = (error !== undefined);
     return(
       <Aux>
 
         {hasError &&
           <Message
             error
+            size="large"
             header="Error"
             content={error}/>
         }
+
 
         <Input
           error={hasError}
@@ -51,15 +52,13 @@ class Purchase extends React.Component{
       reset();
     })
   }
-
   render(){
-    const { handleSubmit} = this.props;
-
+    const {handleSubmit} = this.props;
     return(
       <form onSubmit={handleSubmit(this.submit)}>
-        <div>Buy Tokens</div>
-        <Field name="amount" type="text" component={this.amountInput}/>
-        <Button type="submit">Purchase</Button>
+        <div style={this.props.account.id ? {} : {opacity:.5}}>Buy Tokens</div>
+        <Field disabled={this.props.account.id ? false : true} name="amount" type="text" component={this.amountInput}/>
+        <Button disabled={this.props.account.id ? false : true} type="submit">Purchase</Button>
       </form>
     )
   }

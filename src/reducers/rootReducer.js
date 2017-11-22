@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
-import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, BUY_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
+import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
+import {BUY_TOKENS_DONE} from '../constants';
 
 const account = (state = {}, action) =>{
   switch (action.type){

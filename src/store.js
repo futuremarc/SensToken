@@ -24,7 +24,7 @@ const defaultState = {
 };
 
 const store = createStore(rootReducer, defaultState,
-  composeSetup(applyMiddleware(sagaMiddleware, contractMiddleware) //logger
+  composeSetup(applyMiddleware(sagaMiddleware, contractMiddleware, logger) //logger
 ));
 sagaMiddleware.run(sagas);
 
