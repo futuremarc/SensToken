@@ -59,17 +59,18 @@ const buyTokens = (contract, id, rate, amount) => {
 }
 
 const getRate = (contract) => {
-  return contract.RATE().then(res =>res.c[0]);
+  return contract.RATE().then(result =>result.c[0]);
 }
 const getPurchased = (contract) => {
-  return contract.totalSupply().then(res => res.c[0])
+  return contract.totalSupply().then(result => web3.fromWei(result.toNumber(),"ether"));
 }
 const getMaxSupply = (contract) => {
-  return contract.MAX_TOKENS().then(res => res.c[0])
+  return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(),"ether"));
 }
 
+//convert from bignumber then fromwei
 const getBalance = (contract, id) => {
-  return contract.balanceOf(id).then(result=> result.c[0]).catch((err) => err.message);
+  return contract.balanceOf(id).then(result=> web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
 }
 
 const getId = (contract) => {
@@ -97,6 +98,7 @@ function* callGetAccount() {
   const contract = yield select(selectContract);
   const id = yield call(getId, contract);
   const balance = yield call(getBalance, contract, id);
+  console.log('BALANCE!!', balance)
   if (isNaN(Number(balance))){ //balance contains err msg for no injected web3
     yield put({ type: GET_ACCOUNT_FAILED, payload : balance });
   }else{
