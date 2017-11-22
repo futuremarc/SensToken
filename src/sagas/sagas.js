@@ -29,6 +29,7 @@ const getContract = () => {
   }
     let contract = TruffleContract(SensArtifact);
     contract.setProvider(web3Provider);
+
     return contract.deployed().then(instance => instance)
   }
 
@@ -38,7 +39,7 @@ const buyTokens = (contract, id, rate, amount) => {
   .then((result)=>{
     for (var i = 0; i < result.logs.length; i++) {
       var log = result.logs[i];
-      if (log.event == "CreatedTokens") {
+      if (log.event === "CreatedTokens") {
         return log;
       }
     }

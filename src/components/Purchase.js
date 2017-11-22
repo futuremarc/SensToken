@@ -2,6 +2,7 @@ import React from 'react';
 import {Input, Button, Message} from 'semantic-ui-react';
 import {Field, reduxForm, SubmissionError} from 'redux-form';
 import {BUY_TOKENS} from '../constants';
+import Aux from 'react-aux';
 
 
 class Purchase extends React.Component{
@@ -16,7 +17,7 @@ class Purchase extends React.Component{
 
     const hasError = touched && error !== undefined;
     return(
-      <div>
+      <Aux>
 
         {hasError &&
           <Message
@@ -27,12 +28,11 @@ class Purchase extends React.Component{
 
         <Input
           error={hasError}
-          placeholder='Enter Amount'
-          value=' '
+          placeholder="Enter Amount"
           {...input}
           {...custom} />
 
-      </div>
+      </Aux>
     )
   }
 
@@ -58,25 +58,22 @@ class Purchase extends React.Component{
     return(
       <form onSubmit={handleSubmit(this.submit)}>
         <div>Buy Tokens</div>
-        <Field name="amount" component={this.amountInput}/>
+        <Field name="amount" type="text" component={this.amountInput}/>
         <Button type="submit">Purchase</Button>
       </form>
     )
   }
 }
 
-const validate = values => {
-
+const validate = ({amount}) => {
   const errors = {}
-
-  if (!values.amount) {
-    // errors.amount = 'Required'
-  } else if (isNaN(Number(values.amount))) {
-    // errors.amount = 'Must be a number'
+  if (!amount) amount = " ";
+  if (amount.length < 1) {
+    errors.amount = 'Required';
   }
-
-  console.log('VALUES!! ERRORS', values, errors)
-
+  if (isNaN(Number(amount))) {
+    errors.amount = 'Must be a number';
+  }
   return errors
 }
 

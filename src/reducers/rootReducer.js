@@ -31,7 +31,6 @@ const tokens = (state = {}, action) =>{
         maxSupply: action.payload.maxSupply
       };
     case BUY_TOKENS_DONE:
-    console.log('ACTION BITCH!!!', action)
       return {
         ...state,
         purchased: action.payload.args.totalSupply.c[0],

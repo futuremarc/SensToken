@@ -9,7 +9,7 @@ import Account from './Account';
 import Info from './Info';
 import Purchase from './Purchase';
 
-import logo from '../logo.svg';
+import logo from '../images/logo.svg';
 import './App.css';
 
 class App extends React.Component {
@@ -26,10 +26,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header logo={logo} title="SensToken"/>
+        <Header logo={logo} title="Sens Token"/>
         <Intro text="Make Sens of the World"/>
-
-        <Account {...this.props}/>
+        <div className="Account-info">
+          <Account {...this.props}/>
+        </div>
         <div className="Main-info">
           <Info {...this.props}/>
         </div>
