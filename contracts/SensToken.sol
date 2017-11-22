@@ -9,7 +9,9 @@ contract SensToken is StandardToken {
   uint32 public constant decimals = 18;
   uint256 public constant MAX_SUPPLY = 1000000000;
   uint32 public constant RATE = 500;
-  uint32 public INITIAL_SUPPLY = 0;
+  uint32 public constant INITIAL_SUPPLY = 0;
+
+  event CreatedTokens(address sender, uint256 balance, uint256 totalSupply);
 
   modifier hasValue(){
      require(msg.value > 0);
@@ -27,6 +29,7 @@ contract SensToken is StandardToken {
       uint256 tokens = msg.value.mul(RATE);
       balances[msg.sender] = balances[msg.sender].add(tokens);
       totalSupply = totalSupply.add(tokens);
+      CreatedTokens(msg.sender, balances[msg.sender], totalSupply);
       owner.transfer(msg.value);
   }
 

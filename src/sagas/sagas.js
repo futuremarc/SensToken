@@ -2,7 +2,7 @@ import { takeEvery, fork, call, put, select, all} from 'redux-saga/effects';
 import {GET_TOKENS, GET_TOKENS_DONE} from '../constants';
 import {GET_ACCOUNT, GET_ACCOUNT_DONE} from '../constants';
 import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
-import {BUY_TOKENS, BUY_TOKENS_DONE} from '../constants';
+import {BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
 import Web3 from 'web3';
 import TruffleContract from 'truffle-contract';
@@ -36,7 +36,12 @@ const buyTokens = (contract, id, rate, amount) => {
   const value = amount/rate;
   return contract.createTokens({value:web3.toWei(value,"ether"), gas:200000,from:id})
   .then((result)=>{
-    return result;
+    for (var i = 0; i < result.logs.length; i++) {
+      var log = result.logs[i];
+      if (log.event == "CreatedTokens") {
+        return log;
+      }
+    }
   }).catch(function(err) {
     return err.message;
   });
@@ -90,7 +95,14 @@ function* callBuyTokens({amount, resolve, reject}) {
   const contract = yield select(selectContract);
   const account = yield select(selectAccount);
   const newTokens = yield call(buyTokens, contract, account.id[0], tokens.rate, amount);
-  yield put({ type: BUY_TOKENS_DONE, payload : newTokens });
+
+  if (newTokens.transactionHash){
+    yield call(resolve);
+    yield put({ type: BUY_TOKENS_DONE, payload : newTokens });
+  }else{
+    yield call(reject);
+    yield put({ type: BUY_TOKENS_FAILED, payload : newTokens });
+  }
 }
 
 function* getTokensSaga() {

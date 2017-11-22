@@ -37,6 +37,7 @@ class Purchase extends React.Component{
   }
 
   submit({amount},dispatch){
+    const {reset} = this.props;
     return new Promise((resolve, reject)=>{
       dispatch({
         type:BUY_TOKENS,
@@ -46,11 +47,13 @@ class Purchase extends React.Component{
       })
     }).catch((error)=>{
       throw new SubmissionError(error);
+    }).then(()=>{
+      reset();
     })
   }
 
   render(){
-    const { handleSubmit } = this.props;
+    const { handleSubmit} = this.props;
 
     return(
       <form onSubmit={handleSubmit(this.submit)}>
