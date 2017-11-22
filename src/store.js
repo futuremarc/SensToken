@@ -19,7 +19,8 @@ const defaultState = {
     balance:0,
     id:''
   },
-  contract: {}
+  contract: {},
+  form: ''
 };
 
 const store = createStore(rootReducer, defaultState,

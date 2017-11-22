@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
+
 import Header from './Header';
 import Intro from './Intro';
 import Account from './Account';
@@ -42,7 +43,8 @@ const mapStateToProps = (state) =>{
   return{
     account: state.account,
     contract: state.contract,
-    tokens: state.tokens
+    tokens: state.tokens,
+    form: state.form
   }
 }
 

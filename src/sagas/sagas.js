@@ -2,6 +2,7 @@ import { takeEvery, fork, call, put, select, all} from 'redux-saga/effects';
 import {GET_TOKENS, GET_TOKENS_DONE} from '../constants';
 import {GET_ACCOUNT, GET_ACCOUNT_DONE} from '../constants';
 import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
+import {BUY_TOKENS, BUY_TOKENS_DONE} from '../constants';
 
 import Web3 from 'web3';
 import TruffleContract from 'truffle-contract';
@@ -11,36 +12,35 @@ import config from '../config';
 let web3 = window.web3 || null;
 
 export const selectContract = (state) => state.contract;
-
-// import request from 'superagent';
+export const selectTokens = (state) => state.tokens;
+export const selectAccount = (state) => state.account;
 
 const getContract = () => {
   let web3Provider = null;
 
   if (typeof web3 !== 'undefined') {
-      console.log('web3 found');
-      web3Provider = web3.currentProvider;
-      window.web3 = new Web3(web3Provider);
-    }else{
-      console.log('web3 not found')
-      web3Provider = new Web3.providers.HttpProvider(config.url);
-      window.web3 = new Web3(web3Provider);
-    }
+    console.log('web3 found');
+    web3Provider = web3.currentProvider;
+    window.web3 = new Web3(web3Provider);
+  }else{
+    console.log('web3 not found')
+    web3Provider = new Web3.providers.HttpProvider(config.url);
+    window.web3 = new Web3(web3Provider);
+  }
     let contract = TruffleContract(SensArtifact);
     contract.setProvider(web3Provider);
-    return contract.deployed().then(instance => {
+    return contract.deployed().then(instance => instance)
+  }
 
-        instance.createTokens({value:web3.toWei(.1,"ether"),gas:200000,from:"0x627306090abaB3A6e1400e9345bC60c78a8BEf57"})
-        .then((result)=>{
-          console.log(result);
-        }).catch(function(err) {
-          throw err.message;
-        });
-        return instance
-      })
-
-    }
-
+const buyTokens = (contract, id, rate, amount) => {
+  const value = amount/rate;
+  return contract.createTokens({value:web3.toWei(value,"ether"), gas:200000,from:id})
+  .then((result)=>{
+    return result;
+  }).catch(function(err) {
+    return err.message;
+  });
+}
 
 const getRate = (contract) => {
   return contract.RATE().then(res =>res.c[0]);
@@ -83,9 +83,14 @@ function* callGetAccount() {
   const balance = yield call(getBalance, contract, id);
   const account = {balance, id};
   yield put({ type: GET_ACCOUNT_DONE, payload : account });
+}
 
-
-
+function* callBuyTokens({amount, resolve, reject}) {
+  const tokens = yield select(selectTokens);
+  const contract = yield select(selectContract);
+  const account = yield select(selectAccount);
+  const newTokens = yield call(buyTokens, contract, account.id[0], tokens.rate, amount);
+  yield put({ type: BUY_TOKENS_DONE, payload : newTokens });
 }
 
 function* getTokensSaga() {
@@ -99,11 +104,15 @@ function* getAccountSaga() {
 function* getContractSaga() {
   yield takeEvery(GET_CONTRACT, callGetContract);
 }
+function* buyTokensSaga() {
+  yield takeEvery(BUY_TOKENS, callBuyTokens);
+}
 
 export default function* root() {
   yield all([
     fork(getTokensSaga),
     fork(getAccountSaga),
-    fork(getContractSaga)
+    fork(getContractSaga),
+    fork(buyTokensSaga)
   ]);
 }

@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import {reducer as form} from 'redux-form';
 
 import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
 
@@ -38,6 +39,6 @@ const contract = (state = {}, action) =>{
   }
 }
 
-const rootReducer = combineReducers({tokens, account, contract});
+const rootReducer = combineReducers({tokens, account, contract, form});
 
 export default rootReducer;
