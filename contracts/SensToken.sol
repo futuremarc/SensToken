@@ -3,17 +3,28 @@ pragma solidity ^0.4.4;
 import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 
 contract SensToken is StandardToken {
-  string public name = 'SensToken';
-  string public symbol = 'SENS';
-  uint public decimals = 18;
-  uint public INITIAL_SUPPLY = 0;
-  uint public MAX_SUPPLY = 1000000000;
-  uint public RATE = 500;
-  address public owner = msg.sender;
+  address public constant owner = msg.sender;
+  string public constant name = 'SensToken';
+  string public constant symbol = 'SENS';
+  uint32 public constant decimals = 18;
+  uint256 public constant MAX_SUPPLY = 1000000000;
+  uint32 public constant RATE = 500;
+  uint32 public INITIAL_SUPPLY = 0;
 
-  function createTokens() payable{
+  modifier hasValue(){
+     require(msg.value > 0);
+     _;
+  }
+
+  modifier areTokensLeft(){
+    uint256 tokens = msg.value.mul(RATE);
+    uint256 newTotal = totalSupply.add(tokens);
+    require(newTotal <= MAX_SUPPLY);
+    _;
+  }
+
+  function createTokens() payable hasValue {
       uint256 tokens = msg.value.mul(RATE);
-      require(msg.value > 0 && totalSupply.add(tokens) <= MAX_SUPPLY);
       balances[msg.sender] = balances[msg.sender].add(tokens);
       totalSupply = totalSupply.add(tokens);
       owner.transfer(msg.value);

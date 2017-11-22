@@ -1,22 +1,19 @@
-import {EDIT_ID, EDIT_BALANCE, EDIT_TOKENS} from '../constants';
+import {GET_ACCOUNT, GET_TOKENS, GET_CONTRACT} from '../constants';
 
-export const editId = (id) =>{
+export const getAccount = () =>{
   return{
-    type: EDIT_ID,
-    payload: id
+    type: GET_ACCOUNT
   }
 }
 
-export const editBalance = (balance) =>{
+export const getTokens = () =>{
   return{
-    type: EDIT_BALANCE,
-    payload: balance
+    type: GET_TOKENS
   }
 }
 
-export const editTokens = (info) =>{
+export const getContract = () =>{
   return{
-    type: EDIT_TOKENS,
-    payload: info
+    type: GET_CONTRACT
   }
 }
