@@ -18,6 +18,7 @@ import SensArtifact from '../SensToken.json';
 import config from '../config';
 
 let web3 = window.web3 || null;
+window.contract = null;
 
 
 
@@ -52,23 +53,24 @@ class App extends React.Component {
 
   initBalance(account){
 
-    const {contract, newBalance} = this.props;
+    const {editBalance} = this.props;
 
-    let SensInstance;
+    let tokenInstance;
 
-    contract.deployed().then((instance) =>{
-      SensInstance = instance;
+    window.contract.deployed().then((instance) =>{
+      tokenInstance = instance;
 
-      console.log('instance', SensInstance);
-      console.log('account ', account);
-
-      SensInstance.balanceOf(account)
+      tokenInstance.balanceOf(account)
       .then((result)=>{
         const tokens = result.c[0];
-        console.log('tokens',tokens);
-        newBalance(tokens);
+        editBalance(tokens);
 
-        SensInstance.createTokens({value:web3.toWei(.1,"ether"),gas:200000,from:account})
+        console.log('tokens', tokens);
+        console.log('instance', tokenInstance);
+        console.log('account ', account);
+
+        tokenInstance
+        .createTokens({value:web3.toWei(.1,"ether"),gas:200000,from:account})
         .then((result)=>{
           console.log(result);
         }).catch(function(err) {
@@ -82,25 +84,46 @@ class App extends React.Component {
 
 
   initAccount(){
-    const {newAccount} = this.props;
+    const {editId} = this.props;
     window.web3.eth.getAccounts((err, accounts) => {
       if (err) {
         throw err;
       }
-      const account = accounts[0];
-      newAccount(account);
-      return this.initBalance(account)
+      const id = accounts[0];
+      editId(id);
+      return this.initBalance(id)
+    });
+  }
+
+  initTokens(){
+    const {editTokens} = this.props;
+    let tokenInstance, rate, totalSupply, maxSupply;
+
+    window.contract.deployed().then((instance) =>{
+      tokenInstance = instance;
+
+      (async function() {
+        rate = await tokenInstance.RATE().then(res => {
+            return res.c[0];
+          });
+        totalSupply = await tokenInstance.totalSupply().then(res => {
+          return res.c[0];
+        })
+        maxSupply = await tokenInstance.MAX_SUPPLY().then(res => {
+          return res.c[0];
+        })
+
+        editTokens({maxSupply, totalSupply, rate})
+        
+      })()
     });
   }
 
   initContract(web3Provider){
-        const {newAccount, newContract} = this.props;
 
-        let contract = TruffleContract(SensArtifact);
-        contract.setProvider(web3Provider);
-
-        newContract(contract)
-
+        window.contract = TruffleContract(SensArtifact);
+        window.contract.setProvider(web3Provider);
+        this.initTokens();
         return this.initAccount();
   }
 
@@ -115,7 +138,7 @@ class App extends React.Component {
         <Header logo={logo} title="SensToken"/>
         <Intro text="Make Sens of the World"/>
         <Account {...this.props}/>
-        <Info/>
+        <Info {...this.props}/>
         <Purchase/>
       </div>
     );
@@ -124,10 +147,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) =>{
   return{
-    contract: state.contract,
     account: state.account,
-    balance: state.balance
-
+    tokens: state.tokens
   }
 }
 

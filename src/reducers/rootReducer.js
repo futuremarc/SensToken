@@ -1,35 +1,39 @@
 import {combineReducers} from 'redux';
 
-import {NEW_ACCOUNT, NEW_CONTRACT, NEW_BALANCE} from '../constants';
+import {EDIT_ID, EDIT_BALANCE, EDIT_TOKENS} from '../constants';
 
 const account = (state = {}, action) =>{
   switch (action.type){
-    case NEW_ACCOUNT:
-      return action.payload;
+    case EDIT_ID:
+      return {
+        ...state,
+        id: action.payload
+      };
+    case EDIT_BALANCE:
+      return {
+        ...state,
+        balance: action.payload
+      }
+
     default:
       return state;
   }
 }
 
-const contract = (state = {}, action) =>{
+const tokens = (state = {}, action) =>{
   switch (action.type){
-    case NEW_CONTRACT:
-      return action.payload;
+    case EDIT_TOKENS:
+      return {
+        ...state,
+        rate: action.payload.rate,
+        purchased: action.payload.purchased,
+        maxSupply: action.payload.maxSupply
+      };
     default:
       return state;
   }
 }
 
-const balance = (state = {}, action) =>{
-  switch (action.type){
-    case NEW_BALANCE:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-
-const rootReducer = combineReducers({contract, account, balance});
+const rootReducer = combineReducers({tokens, account});
 
 export default rootReducer;

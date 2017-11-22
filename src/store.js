@@ -7,9 +7,15 @@ import createSagaMiddleware from 'redux-saga';
 // const composeSetup = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const defaultState = {
-  contract: {},
-  account: '',
-  balance: 0
+  tokens: {
+    rate: 0,
+    purchased: 0,
+    maxSupply: 0
+  },
+  account: {
+    balance:0,
+    id:''
+  }
 };
 
 const store = createStore(rootReducer, defaultState);

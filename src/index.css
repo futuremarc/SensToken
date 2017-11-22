@@ -1,12 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
   color: #ffffff;
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
   background: linear-gradient(to right, #004e92, #000428);
-
-
 }

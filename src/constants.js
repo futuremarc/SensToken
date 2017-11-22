@@ -1,3 +1,3 @@
-export const NEW_CONTRACT = 'NEW_CONTRACT';
-export const NEW_ACCOUNT = 'NEW_ACCOUNT';
-export const NEW_BALANCE = 'NEW_BALANCE';
+export const EDIT_ID = 'EDIT_ID';
+export const EDIT_BALANCE = 'EDIT_BALANCE';
+export const EDIT_TOKENS = 'EDIT_TOKENS';

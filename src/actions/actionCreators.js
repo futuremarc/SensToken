@@ -1,22 +1,22 @@
-import {NEW_ACCOUNT, NEW_CONTRACT, NEW_BALANCE} from '../constants';
+import {EDIT_ID, EDIT_BALANCE, EDIT_TOKENS} from '../constants';
 
-export const newAccount = (account) =>{
+export const editId = (id) =>{
   return{
-    type: NEW_ACCOUNT,
-    payload: account
+    type: EDIT_ID,
+    payload: id
   }
 }
 
-export const newContract = (contract) =>{
+export const editBalance = (balance) =>{
   return{
-    type: NEW_CONTRACT,
-    payload: contract
-  }
-}
-
-export const newBalance = (balance) =>{
-  return{
-    type: NEW_BALANCE,
+    type: EDIT_BALANCE,
     payload: balance
+  }
+}
+
+export const editTokens = (info) =>{
+  return{
+    type: EDIT_TOKENS,
+    payload: info
   }
 }
