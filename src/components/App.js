@@ -47,11 +47,11 @@ class App extends React.Component {
 
 const mapStateToProps = (state) =>{
   return{
-    account: state.account,
-    contract: state.contract,
-    tokens: state.tokens,
-    form: state.form,
-    initialized: state.initialized
+    account: state.account, /*wallet address*/
+    contract: state.contract, /*contract instance*/
+    tokens: state.tokens, /*wallet address*/
+    form: state.form, /*redux form*/
+    initialized: state.initialized /*is app initialized, used to set metamask account change polling*/
   }
 }
 

@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
 import {INITILIZE_APP} from '../constants';
-import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
+import {GET_ACCOUNT_DONE, GET_ID_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
 import {BUY_TOKENS_DONE} from '../constants';
 
 const account = (state = {}, action) =>{
@@ -10,13 +10,17 @@ const account = (state = {}, action) =>{
     case GET_ACCOUNT_DONE:
       return {
         ...state,
-        id: action.payload.id,
-        balance: action.payload.balance
+        ...action.payload
       };
     case BUY_TOKENS_DONE:
       return {
         ...state,
-        balance: action.payload.balance,
+        ...action.payload
+      };
+    case GET_ID_DONE:
+      return {
+        ...state,
+        ...action.payload
       };
     default:
       return state;
@@ -28,14 +32,12 @@ const tokens = (state = {}, action) =>{
     case GET_TOKENS_DONE:
       return {
         ...state,
-        rate: action.payload.rate,
-        totalSupply: action.payload.totalSupply,
-        maxSupply: action.payload.maxSupply
+        ...action.payload
       };
     case BUY_TOKENS_DONE:
       return {
         ...state,
-        totalSupply: action.payload.totalSupply,
+        ...action.payload
       };
     default:
       return state;

@@ -1,7 +1,7 @@
 import { takeEvery, fork, call, put, select, all} from 'redux-saga/effects';
 
 import {GET_TOKENS, GET_TOKENS_DONE} from '../constants';
-import {GET_ACCOUNT, GET_ACCOUNT_DONE, GET_ACCOUNT_FAILED} from '../constants';
+import {GET_ACCOUNT, GET_ID, GET_ACCOUNT_DONE, GET_ID_DONE, GET_ACCOUNT_FAILED} from '../constants';
 import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
 import {BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
@@ -110,6 +110,13 @@ function* callGetAccount() {
   }
 }
 
+function* callGetId(){
+  const contract = yield select(selectContract);
+  const ids = yield call(getId, contract);
+  const id = ids[0];
+  yield put({ type: GET_ID_DONE, payload : {id} });
+}
+
 function* callBuyTokens({amount, resolve, reject}) {
   const tokens = yield select(selectTokens);
   const contract = yield select(selectContract);
@@ -139,6 +146,10 @@ function* getAccountSaga() {
   yield takeEvery(GET_ACCOUNT, callGetAccount);
 }
 
+function* getIdSaga() {
+  yield takeEvery(GET_ID, callGetId);
+}
+
 function* getContractSaga() {
   yield takeEvery(GET_CONTRACT, callGetContract);
 }
@@ -150,6 +161,7 @@ export default function* root() {
   yield all([
     fork(getTokensSaga),
     fork(getAccountSaga),
+    fork(getIdSaga),/*only ask for id*/
     fork(getContractSaga),
     fork(buyTokensSaga)
   ]);

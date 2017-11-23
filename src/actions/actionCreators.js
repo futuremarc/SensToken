@@ -1,4 +1,10 @@
-import {GET_ACCOUNT, GET_TOKENS, GET_CONTRACT, INITILIZE_APP} from '../constants';
+import {GET_ACCOUNT, GET_TOKENS, GET_CONTRACT, INITILIZE_APP, GET_ID} from '../constants';
+
+export const getId = () =>{
+  return{
+    type: GET_ID
+  }
+}
 
 export const getAccount = () =>{
   return{

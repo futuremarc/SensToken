@@ -1,5 +1,5 @@
 import {GET_CONTRACT_DONE} from '../constants';
-import {getAccount, getTokens, initializeApp} from '../actions/actionCreators';
+import {getAccount, getTokens, initializeApp, getId} from '../actions/actionCreators';
 
 const contractMiddleware = store => next => action => {
   switch(action.type){
@@ -11,7 +11,7 @@ const contractMiddleware = store => next => action => {
         /*initialize polling for metamask changing accounts*/
         store.dispatch(initializeApp());
         setInterval(() => {
-          store.dispatch(getAccount());
+          store.dispatch(getId());
         }, 1000);
       }
       next(action)
