@@ -12,7 +12,7 @@ const logger = createLogger();
 const defaultState = {
   tokens: {
     rate: 0,
-    purchased: 0,
+    totalSupply: 0,
     maxSupply: 0
   },
   account: {

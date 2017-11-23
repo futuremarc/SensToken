@@ -61,11 +61,11 @@ const buyTokens = (contract, id, rate, amount) => {
 const getRate = (contract) => {
   return contract.RATE().then(result =>result.c[0]);
 }
-const getPurchased = (contract) => {
-  return contract.totalSupply().then(result => web3.fromWei(result.toNumber(),"ether"));
+const getTotalSupply= (contract) => {
+  return contract.totalSupply().then(result => web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
 }
 const getMaxSupply = (contract) => {
-  return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(),"ether"));
+  return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
 }
 
 //convert from bignumber then fromwei
@@ -82,15 +82,15 @@ const getId = (contract) => {
 
 function* callGetContract() {
   const contract = yield call(getContract);
-  yield put({ type: GET_CONTRACT_DONE, payload : contract });
+  yield put({ type: GET_CONTRACT_DONE, payload : {contract} });
 }
 
 function* callGetTokens() {
   const contract = yield select(selectContract);
   const rate = yield call(getRate, contract);
-  const purchased = yield call(getPurchased, contract);
+  const totalSupply = yield call(getTotalSupply, contract);
   const maxSupply = yield call(getMaxSupply, contract);
-  const tokens = {rate, purchased, maxSupply};
+  const tokens = {rate, totalSupply, maxSupply};
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 }
 
@@ -111,14 +111,20 @@ function* callBuyTokens({amount, resolve, reject}) {
   const tokens = yield select(selectTokens);
   const contract = yield select(selectContract);
   const account = yield select(selectAccount);
-  const newTokens = yield call(buyTokens, contract, account.id[0], tokens.rate, amount);
+  const boughtTokens = yield call(buyTokens, contract, account.id[0], tokens.rate, amount);
 
-  if (newTokens.transactionHash){
+  if (boughtTokens.transactionHash){
     yield call(resolve);
-    yield put({ type: BUY_TOKENS_DONE, payload : newTokens });
+    const totalSupply = boughtTokens.args.totalSupply;
+    const balance = boughtTokens.args.balance;
+    const payload = {
+      totalSupply : web3.fromWei(totalSupply.toNumber(), "ether"),
+      balance : web3.fromWei(balance.toNumber(), "ether")
+    };
+    yield put({ type: BUY_TOKENS_DONE, payload});
   }else{
     yield call(reject);
-    yield put({ type: BUY_TOKENS_FAILED, payload : newTokens });
+    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); //contains err
   }
 }
 

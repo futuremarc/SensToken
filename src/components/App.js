@@ -3,13 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 
-import Header from './Header';
-import Intro from './Intro';
+import Title from './Title';
 import Account from './Account';
 import Info from './Info';
 import Purchase from './Purchase';
 
-import logo from '../images/logo.svg';
 import './App.css';
 
 class App extends React.Component {
@@ -26,8 +24,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header logo={logo} title="Sens Token"/>
-        <Intro text="Make Sens of the World"/>
+        <Title title="Sens Token"/>
         <div className="Account-info">
           <Account {...this.props}/>
         </div>

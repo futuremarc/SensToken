@@ -15,7 +15,7 @@ const account = (state = {}, action) =>{
     case BUY_TOKENS_DONE:
       return {
         ...state,
-        balance: action.payload.args.balance.c[0],
+        balance: action.payload.balance,
       };
     default:
       return state;
@@ -28,13 +28,13 @@ const tokens = (state = {}, action) =>{
       return {
         ...state,
         rate: action.payload.rate,
-        purchased: action.payload.purchased,
+        totalSupply: action.payload.totalSupply,
         maxSupply: action.payload.maxSupply
       };
     case BUY_TOKENS_DONE:
       return {
         ...state,
-        purchased: action.payload.args.totalSupply.c[0],
+        totalSupply: action.payload.totalSupply,
       };
     default:
       return state;
@@ -44,7 +44,7 @@ const tokens = (state = {}, action) =>{
 const contract = (state = {}, action) =>{
   switch (action.type){
     case GET_CONTRACT_DONE:
-      return action.payload;
+      return action.payload.contract;
     default:
       return state;
   }

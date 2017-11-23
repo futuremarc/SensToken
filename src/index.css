@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:light');
+
 body {
   margin: 0;
   padding: 0;
-  color: #ffffff;
-  background: #000428;
-  background: -webkit-linear-gradient(to right, #004e92, #000428);
-  background: linear-gradient(to right, #004e92, #000428);
+  color: #333;
+  background: #f2f2f2;
 }
