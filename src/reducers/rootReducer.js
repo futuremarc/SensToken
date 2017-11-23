@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
+import {INITILIZE_APP} from '../constants';
 import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
 import {BUY_TOKENS_DONE} from '../constants';
 
@@ -50,6 +51,15 @@ const contract = (state = {}, action) =>{
   }
 }
 
-const rootReducer = combineReducers({tokens, account, contract, form});
+const initialized = (state = false, action) =>{
+  switch (action.type){
+    case INITILIZE_APP:
+      return true;
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({tokens, account, contract, form, initialized});
 
 export default rootReducer;

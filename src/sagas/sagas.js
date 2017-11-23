@@ -42,8 +42,9 @@ const getContract = () => {
     };
   }
   /*truffle-contract work around end*/
+
   return contract.deployed().then(instance => instance)
-  }
+}
 
 const buyTokens = (contract, id, rate, amount) => {
   const value = amount/rate;
@@ -91,7 +92,6 @@ function* callGetTokens() {
   const totalSupply = yield call(getTotalSupply, contract);
   const maxSupply = yield call(getMaxSupply, contract);
   const tokens = {rate, totalSupply, maxSupply};
-  console.log('TOKENS',tokens)
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 }
 

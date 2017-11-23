@@ -1,3 +1,4 @@
+export const INITILIZE_APP = 'INITILIZE_APP';
 export const GET_ACCOUNT = 'GET_ACCOUNT';
 export const GET_ACCOUNT_DONE = 'GET_ACCOUNT_DONE';
 export const GET_ACCOUNT_FAILED = 'GET_ACCOUNT_FAILED';

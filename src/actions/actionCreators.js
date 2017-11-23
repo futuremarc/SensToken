@@ -1,4 +1,4 @@
-import {GET_ACCOUNT, GET_TOKENS, GET_CONTRACT} from '../constants';
+import {GET_ACCOUNT, GET_TOKENS, GET_CONTRACT, INITILIZE_APP} from '../constants';
 
 export const getAccount = () =>{
   return{
@@ -15,5 +15,11 @@ export const getTokens = () =>{
 export const getContract = () =>{
   return{
     type: GET_CONTRACT
+  }
+}
+
+export const initializeApp = () =>{
+  return{
+    type: INITILIZE_APP
   }
 }

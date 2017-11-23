@@ -5,11 +5,12 @@ module.exports = {
       port: 9545,
       network_id: "*"
     },
-  	rpc: {
-  		host: "localhost",
-  		gas: 4712388,
-  		port: 9545
-  	},
+    rinkeby: {
+      host: "https://rinkeby.infura.io/",
+      port: 80,
+      from: "0x821aEa9a577a9b44299B9c15c88cf3087F3b5544",
+      gas: 6721975
+    },
   	solc: {
   		optimizer: {
   			enabled: true,
@@ -18,5 +19,3 @@ module.exports = {
   	}
   }
 };
-
-//testrpc -p 9545 --gasLimit 6721975 --gasPrice 100000000000

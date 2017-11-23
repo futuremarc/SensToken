@@ -1,6 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import store from '../store';
 import * as actionCreators from '../actions/actionCreators';
 
 import '../styles/App.css';
@@ -49,7 +50,8 @@ const mapStateToProps = (state) =>{
     account: state.account,
     contract: state.contract,
     tokens: state.tokens,
-    form: state.form
+    form: state.form,
+    initialized: state.initialized
   }
 }
 
