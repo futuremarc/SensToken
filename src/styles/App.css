@@ -1,0 +1,109 @@
+
+.card {
+  border: #e4e4e4 1px solid;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 40px 30px 40px 30px;
+}
+
+.medium-font{
+  font-size: 2em;
+  line-height: 1.1em;
+  font-weight: 600;
+}
+
+.error{
+  color: #fc2d3a;
+}
+
+.disabled {
+  opacity: .5;
+}
+
+.brand-color{
+  color: #2124fb;
+}
+
+.App-body{
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 90%;
+  height: 95%;
+}
+
+
+.Token{
+  line-height: 1.5em;
+  width: 60%;
+  min-width: 505px;
+  height: 450px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: start;
+  margin-right: 15px;
+  display: inline-block;
+  word-wrap: break-word;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.Account{
+  width: 35%;
+  min-width: 200px;
+  height: 450px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: end;
+  display: inline-block;
+  word-wrap: break-word;
+  vertical-align: top;
+  padding-top: 65px;
+}
+
+@media only screen and (max-width: 915px) {
+  .Account {
+    width:100%;
+    min-width: 505px;
+  }
+  .Token {
+    width:100%;
+    min-width: 505px;
+  }
+}
+
+.Token-item{
+  padding-bottom: 30px;
+}
+
+.Token-purchase{
+  padding-top:40px;
+}
+
+.App-header {
+  height: 145px;
+  padding: 15px 5px 10px 45px;
+}
+
+.App-login{
+  position: absolute;
+  right: 40px;
+  top: 30px;
+}
+
+.App-title {
+  font-size: 3.5em;
+  text-align: left;
+  display: inline;
+  padding-right: 5px;
+}
+
+.App-subtitle {
+  font-size: 1.5em;
+  text-align: left;
+  display: inline;
+  color: #aeaeae;
+  font-weight: 300;
+}

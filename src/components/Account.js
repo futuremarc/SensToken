@@ -1,24 +1,26 @@
 import React from 'react';
-import Aux from 'react-aux';
+import {Button} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import {numberWithCommas} from '../helpers';
 
 
 class Account extends React.Component{
 
   render(){
     return (
-      <Aux>
-        {this.props.account.id ? <Aux>
-          <div>Wallet: {this.props.account.id}</div>
-          <div>Account balance: {this.props.account.balance}</div>
-        </Aux> : <a href="http://metamask.io" rel="noopener noreferrer" target="_blank">{this.props.altText}</a>}
-      </Aux>
+      <div className={this.props.classList}>
+        <div>Your MetaMask Wallet</div>
+        <div>{ this.props.account.id ? this.props.account.id : <div className="warn">Please install MetaMask to sign in</div> }</div>
+        <br/>
+        <div>Your Token Balance </div>
+        <div className="brand-color medium-font">{numberWithCommas(this.props.account.balance)} SENS</div>
+      </div>
     )
   }
 }
 
-Account.defaultProps = {
-  altText: "Sign in with MetaMask!"
+Account.propTypes = {
+  classList: PropTypes.string
 };
 
 export default Account;

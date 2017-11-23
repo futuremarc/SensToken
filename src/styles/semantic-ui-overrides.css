@@ -1,0 +1,20 @@
+button.ui.big.button{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  background-color: #2124fb !important;
+  color: #fff !important;
+  margin-left: 5px !important;
+  padding-top: 13px !important; /* "big" semantic buttons have padding issue*/
+}
+
+button.ui.big.button:hover{
+  background-color: #080BE2 !important;
+}
+
+div.ui.big.input > ::placeholder{
+  text-align: right !important;
+}
+div.ui.big.input{
+  width:275px !important;
+}

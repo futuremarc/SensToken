@@ -3,12 +3,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 
-import Title from './Title';
-import Account from './Account';
-import Info from './Info';
-import Purchase from './Purchase';
+import '../styles/App.css';
 
-import './App.css';
+import Header from './Header';
+import Account from './Account';
+import Token from './Token';
+
 
 class App extends React.Component {
 
@@ -16,22 +16,29 @@ class App extends React.Component {
   	super();
   }
 
-
   componentWillMount() {
     window.addEventListener('load', this.props.getContract);
   }
 
   render() {
+
+    const headerProps = {
+      title: "SensToken"
+    };
+    const tokenProps = {
+      classList: "Token card"
+    }
+    const accountProps = {
+      classList: "Account card"
+    }
+
     return (
       <div className="App">
-        <Title title="Sens Token"/>
-        <div className="Account-info">
-          <Account {...this.props}/>
+        <Header {...headerProps} {...this.props}/>
+        <div className="App-body">
+          <Token {...tokenProps} {...this.props}/>
+          <Account {...accountProps} {...this.props}/>
         </div>
-        <div className="Main-info">
-          <Info {...this.props}/>
-        </div>
-        <Purchase {...this.props} form="''"/> {/* override form w/empty string for redux-form*/}
       </div>
     );
   }

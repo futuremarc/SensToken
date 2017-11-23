@@ -7,58 +7,55 @@ import Aux from 'react-aux';
 class Purchase extends React.Component{
 
   constructor(props){
-  	super(props);
-    this.submit = this.submit.bind(this);
-    this.amountInput = this.amountInput.bind(this);
+  	super();
+    this.onSubmit = this.onSubmit.bind(this);
+    this.purchaseInput = this.purchaseInput.bind(this);
   }
 
-  amountInput({input, meta: {touched, error}, ...custom}){
+  isDisabled(error){
+    if (!this.props.account.id){
+      return "disabled";
+    } else if (error){
+      return "error";
+    } else {
+      return "";
+    }
+  }
 
-    const hasError = (error !== undefined);
+  purchaseInput({input, meta: {touched, error}, ...custom}){
     return(
       <Aux>
-
-        {hasError &&
-          <Message
-            error
-            size="large"
-            header="Error"
-            content={error}/>
-        }
-
-
+        <div className={this.isDisabled(error)}>{error ? error : "Enter amount to purchase"} </div>
         <Input
-          error={hasError}
-          placeholder="Enter Amount"
+          size="big"
+          error={error}
+          placeholder="SENS"
           {...input}
           {...custom} />
-
+        <Button size="big" disabled={this.isDisabled(error)} type="submit">Purchase</Button>
       </Aux>
     )
   }
 
-  submit({amount},dispatch){
+  onSubmit({amount}, dispatch){
     const {reset} = this.props;
     return new Promise((resolve, reject)=>{
       dispatch({
-        type:BUY_TOKENS,
+        type: BUY_TOKENS,
         amount,
         resolve,
         reject
       })
     }).catch((error)=>{
       throw new SubmissionError(error);
-    }).then(()=>{
-      reset();
-    })
+    }).then(reset);
   }
+
   render(){
     const {handleSubmit} = this.props;
     return(
-      <form onSubmit={handleSubmit(this.submit)}>
-        <div style={this.props.account.id ? {} : {opacity:.5}}>Buy Tokens</div>
-        <Field disabled={this.props.account.id ? false : true} name="amount" type="text" component={this.amountInput}/>
-        <Button disabled={this.props.account.id ? false : true} type="submit">Purchase</Button>
+      <form className="Token-purchase" onSubmit={handleSubmit(this.onSubmit)}>
+        <Field name="amount" disabled={this.props.account.id ? false : true} component={this.purchaseInput}/>
       </form>
     )
   }

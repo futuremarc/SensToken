@@ -12,7 +12,7 @@ import config from '../config';
 
 let web3 = window.web3 || undefined;
 
-//selector functions
+/*selector functions*/
 export const selectContract = (state) => state.contract;
 export const selectTokens = (state) => state.tokens;
 export const selectAccount = (state) => state.account;
@@ -33,7 +33,7 @@ const getContract = () => {
   let contract = TruffleContract(TokenArtifact);
   contract.setProvider(web3Provider);
 
-  //----- truffle-contract bug, issue #57 work around -----//
+  /*truffle-contract bug, issue #57 work around*/
   if (typeof contract.currentProvider.sendAsync !== "function") {
     contract.currentProvider.sendAsync = function() {
       return contract.currentProvider.send.apply(
@@ -41,13 +41,13 @@ const getContract = () => {
       );
     };
   }
-  //-----  truffle-contract work around end-----//
+  /*truffle-contract work around end*/
   return contract.deployed().then(instance => instance)
   }
 
 const buyTokens = (contract, id, rate, amount) => {
   const value = amount/rate;
-  return contract.createTokens({value:web3.toWei(value,"ether"), gas:200000,from:id})
+  return contract.createTokens({value:web3.toWei(value, "ether"), gas:200000,from:id})
   .then((result)=>{
     for (var i = 0; i < result.logs.length; i++) {
       var log = result.logs[i];
@@ -55,27 +55,27 @@ const buyTokens = (contract, id, rate, amount) => {
         return log;
       }
     }
-  }).catch((err) => err.message);
+  }).catch((error) => error.message);
 }
 
 const getRate = (contract) => {
-  return contract.RATE().then(result =>result.c[0]);
+  return contract.RATE().then(result => result.c[0]);
 }
 const getTotalSupply= (contract) => {
-  return contract.totalSupply().then(result => web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
+  return contract.totalSupply().then(result => web3.fromWei(result.toNumber(), "ether")).catch((error) => error.message);
 }
 const getMaxSupply = (contract) => {
-  return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
+  return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(), "ether")).catch((error) => error.message);
 }
 
-//convert from bignumber then fromwei
+/*convert from bignumber then fromwei*/
 const getBalance = (contract, id) => {
-  return contract.balanceOf(id).then(result=> web3.fromWei(result.toNumber(),"ether")).catch((err) => err.message);
+  return contract.balanceOf(id).then(result=> web3.fromWei(result.toNumber(), "ether")).catch((error) => error.message);
 }
 
 const getId = (contract) => {
-  return window.web3.eth.getAccounts((err, accounts) => {
-    if (err) throw err;
+  return window.web3.eth.getAccounts((error, accounts) => {
+    if (error) throw error;
     return accounts[0];
   });
 }
@@ -91,15 +91,18 @@ function* callGetTokens() {
   const totalSupply = yield call(getTotalSupply, contract);
   const maxSupply = yield call(getMaxSupply, contract);
   const tokens = {rate, totalSupply, maxSupply};
+  console.log('TOKENS',tokens)
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 }
 
 function* callGetAccount() {
   const contract = yield select(selectContract);
-  const id = yield call(getId, contract);
+  const ids = yield call(getId, contract);
+  const id = ids[0];
   const balance = yield call(getBalance, contract, id);
-  console.log('BALANCE!!', balance)
-  if (isNaN(Number(balance))){ //balance contains err msg for no injected web3
+
+   /*balance contains error msg when no web3 injects*/
+  if (isNaN(Number(balance))){
     yield put({ type: GET_ACCOUNT_FAILED, payload : balance });
   }else{
     const account = {balance, id};
@@ -111,7 +114,7 @@ function* callBuyTokens({amount, resolve, reject}) {
   const tokens = yield select(selectTokens);
   const contract = yield select(selectContract);
   const account = yield select(selectAccount);
-  const boughtTokens = yield call(buyTokens, contract, account.id[0], tokens.rate, amount);
+  const boughtTokens = yield call(buyTokens, contract, account.id, tokens.rate, amount);
 
   if (boughtTokens.transactionHash){
     yield call(resolve);
@@ -124,7 +127,7 @@ function* callBuyTokens({amount, resolve, reject}) {
     yield put({ type: BUY_TOKENS_DONE, payload});
   }else{
     yield call(reject);
-    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); //contains err
+    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); //contains error
   }
 }
 
