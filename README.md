@@ -22,7 +22,7 @@ Builds the app for production.
 
 Migrates the contract to the rinkeby network
 
-### `npm run migrate:rinkeby`
+### `npm run migrate:local`
 
 Migrates the contract to your local network on port `9545`
 
