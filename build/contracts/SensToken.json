@@ -2470,12 +2470,22 @@
     "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
   },
   "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0x4ad8ea56cc35d29164ab02184c83c30df207474e"
+    },
     "4447": {
       "events": {},
       "links": {},
       "address": "0xde5bb8b8961faef05b2ab38a70c81bdbc91add29"
+    },
+    "1511545165852": {
+      "events": {},
+      "links": {},
+      "address": "0x437274db243ed50897ca0a4da94618c934a9af51"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2017-11-24T17:29:01.484Z"
+  "updatedAt": "2017-11-24T17:55:04.618Z"
 }
