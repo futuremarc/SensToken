@@ -42,14 +42,12 @@ export const getWeb3 = () => {
 
 export const setBuySuccess = () => {
   return {
-    type: BUY_TOKENS_DONE,
-    payload: 'transaction succeeded!'
+    type: BUY_TOKENS_DONE
   }
 };
 
 export const setBuyFail = () => {
   return {
-    type: BUY_TOKENS_FAILED,
-    payload: 'transaction failed'
+    type: BUY_TOKENS_FAILED
   }
 };

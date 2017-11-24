@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
     form: state.form, /*redux form*/
     contract: state.contract, /*contract instance*/
     web3: state.web3, /*web3 object*/
-    txConfirmation: state.txConfirmation, /*displays transaction success or fail*/
+    txStatus: state.txStatus, /*displays transaction success, fail, pending*/
     appInitialized: appInitializedSelector(state) /*is app initialized, used for loader and polling metamask account changes*/
   }
 }

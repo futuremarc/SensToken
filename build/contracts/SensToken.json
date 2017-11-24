@@ -422,9 +422,9 @@
       {
         "attributes": {
           "contractDependencies": [
+            446,
             374,
             417,
-            446,
             677
           ],
           "contractKind": "contract",
@@ -2473,9 +2473,9 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0x9fbda871d559710256a2502a2517b794b482db40"
+      "address": "0xaa588d3737b611bafd7bd713445b314bd453a5c8"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2017-11-24T18:27:07.085Z"
+  "updatedAt": "2017-11-24T19:12:24.371Z"
 }

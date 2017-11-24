@@ -43,7 +43,7 @@ class Purchase extends React.Component{
           placeholder="SENS"
           {...input}
           {...custom} />
-        <Button size="big" disabled={this.buttonDisabled(hasError)} type="submit">Purchase</Button>
+        <Button size="big" loading={!this.props.txStatus.pending ? false : true } disabled={this.buttonDisabled(hasError)} type="submit">Purchase</Button>
       </Aux>
     )
   }

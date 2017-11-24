@@ -283,9 +283,9 @@
       {
         "attributes": {
           "contractDependencies": [
+            446,
             374,
-            417,
-            446
+            417
           ],
           "contractKind": "contract",
           "documentation": "@title Standard ERC20 token\n * @dev Implementation of the basic standard token.\n@dev https://github.com/ethereum/EIPs/issues/20\n@dev Based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol",
@@ -3492,5 +3492,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2017-11-24T18:22:03.099Z"
+  "updatedAt": "2017-11-24T19:12:24.080Z"
 }

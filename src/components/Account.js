@@ -4,7 +4,7 @@ import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
 import FaCheckCircle from 'react-icons/lib/fa/check-circle';
 import FaExclamationCircle from 'react-icons/lib/fa/exclamation-circle';
-
+import FaClockO from 'react-icons/lib/fa/clock-o';
 
 const Wallet = (props) => {
   return (
@@ -26,18 +26,22 @@ const Balance = (props) => {
 
 class Account extends React.Component{
 
-  txConfirmation() {
-    if (!this.props.txConfirmation.msg) {
+  txStatus() {
+    if (!this.props.txStatus.msg) {
       return (
         <div></div>
       )
-    } else if (this.props.txConfirmation.isSuccess) {
+    } else if (this.props.txStatus.isSuccess) {
       return (
-        <div className="success-color Account-msg"><FaCheckCircle/>{this.props.txConfirmation.msg}</div>
+        <div className="success-color Account-msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
       )
-    } else {
+    } else if (!this.props.txStatus.isSuccess) {
       return (
-        <div className="error-color Account-msg"><FaExclamationCircle/>{this.props.txConfirmation.msg}</div>
+        <div className="error-color Account-msg"><FaExclamationCircle/>{this.props.txStatus.msg}</div>
+      )
+    } else if (this.props.txStatus.pending) {
+      return (
+        <div className="Account-msg"><FaClockO/>{this.props.txStatus.msg}</div>
       )
     }
   }
@@ -48,7 +52,7 @@ class Account extends React.Component{
         <Wallet {...this.props}/>
         <br/>
         <Balance {...this.props}/>
-        {this.txConfirmation()}
+        {this.txStatus()}
       </div>
     )
   }

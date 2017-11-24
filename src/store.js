@@ -6,9 +6,11 @@ import rootSagas from './sagas/rootSagas';
 import contractMiddleware from './middleware/contract';
 import web3Middleware from './middleware/web3';
 
-const composeSetup = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 const sagaMiddleware = createSagaMiddleware()
 const logger = createLogger();
+const isDev = process.env.NODE_ENV !== 'production';
+const composeSetup = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+
 
 const defaultState = {
   tokens: {
@@ -23,16 +25,22 @@ const defaultState = {
   contract: {},
   web3: {},
   form: '',
-  txConfirmation: {
+  txStatus: {
     isSuccess: null,
+    pending: false,
     msg : ''
   },
   appInitialized: false
 };
 
-const store = createStore(rootReducer, defaultState,
-  composeSetup(applyMiddleware(sagaMiddleware, web3Middleware, contractMiddleware, logger)
-));
+let store;
+
+if (isDev){
+  store = createStore(rootReducer, defaultState, composeSetup(applyMiddleware(sagaMiddleware, web3Middleware, contractMiddleware, logger)));
+}else{
+  store = createStore(rootReducer, defaultState, applyMiddleware(sagaMiddleware, web3Middleware, contractMiddleware));
+}
+
 sagaMiddleware.run(rootSagas);
 
 export default store;
