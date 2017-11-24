@@ -2,6 +2,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import rootReducer from './reducers/rootReducer';
 import createSagaMiddleware from 'redux-saga';
 import contractMiddleware from './middleware/contract';
+import tokensMiddleware from './middleware/tokens';
 import {createLogger} from 'redux-logger';
 import sagas from './sagas/sagas';
 
@@ -21,7 +22,11 @@ const defaultState = {
   },
   contract: {},
   form: '',
-  initialized: false
+  txConfirmation: {
+    isSuccess: null,
+    msg : ''
+  },
+  appInitialized: false
 };
 
 const store = createStore(rootReducer, defaultState,

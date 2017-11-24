@@ -5,7 +5,6 @@ import store from '../store';
 import * as actionCreators from '../actions/actionCreators';
 
 import '../styles/App.css';
-// import {Loader} from 'react-loaders'
 
 import Header from './Header';
 import Account from './Account';
@@ -36,7 +35,6 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        {/* <Loader type="ball-pulse" active /> */}
         <Header {...headerProps} {...this.props}/>
         <div className="App-body">
           <Token {...tokenProps} {...this.props}/>
@@ -53,7 +51,8 @@ const mapStateToProps = (state) =>{
     contract: state.contract, /*contract instance*/
     tokens: state.tokens, /*wallet address*/
     form: state.form, /*redux form*/
-    initialized: state.initialized /*is app initialized, used for loader and polling metamask account changes*/
+    txConfirmation: state.txConfirmation, /*displays transaction success or fail */
+    appInitialized: state.appInitialized /*is app initialized, used for loader and polling metamask account changes*/
   }
 }
 
@@ -61,4 +60,4 @@ const mapDispatchToProps = (dispatch) =>{
   return bindActionCreators(actionCreators, dispatch)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -3,7 +3,7 @@ import {reducer as form} from 'redux-form';
 
 import {INITILIZE_APP} from '../constants';
 import {GET_ACCOUNT_DONE, GET_ID_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE} from '../constants';
-import {BUY_TOKENS_DONE} from '../constants';
+import {BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
 const account = (state = {}, action) =>{
   switch (action.type){
@@ -53,7 +53,7 @@ const contract = (state = {}, action) =>{
   }
 }
 
-const initialized = (state = false, action) =>{
+const appInitialized = (state = false, action) =>{
   switch (action.type){
     case INITILIZE_APP:
       return true;
@@ -62,6 +62,23 @@ const initialized = (state = false, action) =>{
   }
 }
 
-const rootReducer = combineReducers({form, tokens, account, contract, initialized});
+const txConfirmation = (state = {}, action) =>{
+  switch (action.type){
+    case BUY_TOKENS_DONE:
+      return {
+        isSuccess: true,
+        msg: 'transaction succeeded!'
+      };
+    case BUY_TOKENS_FAILED:
+    return {
+      isSuccess: false,
+      msg: 'transaction failed'
+    };
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({form, tokens, account, contract, txConfirmation, appInitialized});
 
 export default rootReducer;
