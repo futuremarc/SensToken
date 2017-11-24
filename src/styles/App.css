@@ -38,20 +38,20 @@
 }
 
 .Header {
-  height: 145px;
+  height: 140px;
   overflow: hidden;
 }
 
 .Login {
   position: absolute;
   right: 40px;
-  top: 30px;
+  top: 50px;
 }
 
 .Title {
   display: inline-block;
   font-size: 3.5em;
-  padding: 15px 5px 10px 45px;
+  padding: 35px 5px 10px 45px;
 }
 
 .Subtitle {

@@ -1,7 +1,6 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import store from '../store';
 import * as actionCreators from '../actions/actionCreators';
 import {appInitializedSelector} from '../selectors/selectors';
 

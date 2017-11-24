@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
@@ -11,7 +10,7 @@ const Wallet = (props) => {
   return (
     <Aux>
       <div>Your MetaMask Wallet</div>
-      <div>{ props.account.id ? props.account.id : <div className="error-color">Please install MetaMask to sign in</div> }</div>
+      <div>{ props.account.id  ? props.account.id : <div className="error-color">Please install MetaMask to sign in.</div> }</div>
     </Aux>
   )
 }

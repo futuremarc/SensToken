@@ -1,12 +1,12 @@
-import { takeEvery, fork, call, put, select} from 'redux-saga/effects';
-import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
+import {takeEvery, call, put, select} from 'redux-saga/effects';
 import TruffleContract from 'truffle-contract';
 import TokenArtifact from '../SensToken.json';
+import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
+
 
 const web3Selector = (state) => state.web3;
 
 const getContract = (web3) => {
-
   let contract = TruffleContract(TokenArtifact);
   contract.setProvider(web3.currentProvider);
 

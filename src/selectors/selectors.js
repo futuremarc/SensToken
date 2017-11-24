@@ -6,7 +6,7 @@ const tokensSelector = state => state.tokens.totalSupply;
 const appInitializedSelector = createSelector(
   accountSelector,
   tokensSelector,
-  (account, tokens) => (account && tokens)
+  (account, tokens) => ((account !== '' && tokens) !== false)
 )
 
 export {appInitializedSelector};

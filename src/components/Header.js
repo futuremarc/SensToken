@@ -23,9 +23,9 @@ const Header = (props) => (
       !props.account.id &&
       <Button
         className="Login"
-        size="big"
+        size="medium"
         onClick={() => window.open('https://metamask.io', '_blank')}>
-        Sign in with MetaMask!
+        Sign in with MetaMask
       </Button>
     }
   </header>

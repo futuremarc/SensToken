@@ -1,7 +1,7 @@
 import {GET_WEB3} from '../constants';
-import {GET_ACCOUNT, GET_ID, GET_BALANCE} from '../constants';
-import {GET_CONTRACT, INITILIZE_APP} from '../constants';
-import {GET_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
+import {GET_ACCOUNT} from '../constants';
+import {GET_CONTRACT} from '../constants';
+import {GET_TOKENS, BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
 
 export const getAccount = () => {
@@ -15,6 +15,18 @@ export const getTokens = () => {
     type: GET_TOKENS
   }
 };
+
+export const buyTokens = (amount, resolve, reject) => {
+  return {
+    type: BUY_TOKENS,
+    payload: {
+      amount,
+      resolve,
+      reject
+    }
+  }
+};
+
 
 export const getContract = () => {
   return {

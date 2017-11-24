@@ -1,15 +1,12 @@
-import { takeEvery, fork, call, put, select} from 'redux-saga/effects';
-
+import {takeEvery, call, put, select} from 'redux-saga/effects';
+import BNtoString from 'bignumber-to-string';
 import {GET_TOKENS, GET_TOKENS_DONE, BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
-import BNtoString from 'bignumber-to-string';
 
-/*selector functions*/
 export const web3Selector = (state) => state.web3;
 export const contractSelector = (state) => state.contract;
 export const tokensSelector = (state) => state.tokens;
 export const accountSelector = (state) => state.account;
-
 
 const getRate = (contract) => {
   return contract.RATE().then(result => result.c[0]); /*convert from bignumber instead?*/
@@ -44,21 +41,22 @@ function* callGetTokens() {
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 }
 
-function* callBuyTokens({amount, resolve, reject}) {
+function* callBuyTokens({payload}) {
+  const {amount, resolve, reject} = payload;
   const web3 = yield select(web3Selector);
   const contract = yield select(contractSelector);
   const tokens = yield select(tokensSelector);
   const account = yield select(accountSelector);
-  const boughtTokens = yield call(buyTokens, web3, contract, account.id, tokens.rate, amount);
+  let boughtTokens = yield call(buyTokens, web3, contract, account.id, tokens.rate, amount);
   if (boughtTokens.transactionHash) {
     yield call(resolve);
     const totalSupply = boughtTokens.args.totalSupply;
     const balance = boughtTokens.args.balance;
-    const payload = {
+    boughtTokens = {
       totalSupply : web3.utils.fromWei(BNtoString(totalSupply), "ether"),
       balance : web3.utils.fromWei(BNtoString(balance), "ether")
     };
-    yield put({ type: BUY_TOKENS_DONE, payload });
+    yield put({ type: BUY_TOKENS_DONE, payload: boughtTokens });
   }else {
     yield call(reject);
     yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); /*contains error object*/

@@ -1,18 +1,12 @@
-import { takeEvery, fork, call, put, select} from 'redux-saga/effects';
-
-import {GET_WEB3, GET_WEB3_DONE} from '../constants';
-
+import {takeEvery, call, put} from 'redux-saga/effects';
 import Web3 from 'web3';
-import TruffleContract from 'truffle-contract';
-import TokenArtifact from '../SensToken.json';
 import config from '../config';
+import {GET_WEB3, GET_WEB3_DONE} from '../constants';
 
 const getWeb3 = () => {
   if (window.web3) {
-    console.log('web3 found');
     window.web3 = new Web3(window.web3.currentProvider);
   }else {
-    console.log('web3 not found', config.rpcUrl)
     window.web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
   }
   return window.web3;
