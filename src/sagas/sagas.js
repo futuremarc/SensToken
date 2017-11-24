@@ -69,7 +69,7 @@ const getMaxSupply = (contract) => {
   return contract.MAX_TOKENS().then(result => web3.fromWei(result.toNumber(), "ether")).catch((error) => error.message);
 }
 
-/*convert from bignumber then fromwei*/
+/*convert from bignumber then from wei*/
 const getBalance = (contract, id) => {
   return contract.balanceOf(id).then(result=> web3.fromWei(result.toNumber(), "ether")).catch((error) => error.message);
 }
@@ -134,7 +134,7 @@ function* callBuyTokens({amount, resolve, reject}) {
     yield put({ type: BUY_TOKENS_DONE, payload});
   }else{
     yield call(reject);
-    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); //contains error
+    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); /*contains error object*/
   }
 }
 
@@ -160,7 +160,7 @@ function* buyTokensSaga() {
 export default function* root() {
   yield all([
     fork(getTokensSaga),
-    fork(getAccountSaga),
+    fork(getAccountSaga), /* */
     fork(getIdSaga),/*only ask for id*/
     fork(getContractSaga),
     fork(buyTokensSaga)

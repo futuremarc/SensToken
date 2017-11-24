@@ -3,6 +3,7 @@ pragma solidity ^0.4.4;
 import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 
 contract SensToken is StandardToken {
+
   address public owner = msg.sender;
   string public constant NAME = 'Sens Token';
   string public constant SYMBOL = 'SENS';

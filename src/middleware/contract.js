@@ -8,7 +8,7 @@ const contractMiddleware = store => next => action => {
       store.dispatch(getTokens());
 
       if (!store.getState().initialized){
-        /*initialize polling for metamask changing accounts*/
+        /*initialize polling for metamask account changes*/
         store.dispatch(initializeApp());
         setInterval(() => {
           store.dispatch(getId());

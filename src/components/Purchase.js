@@ -23,12 +23,13 @@ class Purchase extends React.Component{
   }
 
   purchaseInput({input, meta: {touched, error}, ...custom}){
+    const hasError = (error && touched)
     return(
       <Aux>
         <div className={this.isDisabled(error)}>{error ? error : "Enter amount to purchase"} </div>
         <Input
           size="big"
-          error={error}
+          error={hasError}
           placeholder="SENS"
           {...input}
           {...custom} />
@@ -55,24 +56,37 @@ class Purchase extends React.Component{
     const {handleSubmit} = this.props;
     return(
       <form className="Token-purchase" onSubmit={handleSubmit(this.onSubmit)}>
-        <Field name="amount" disabled={this.props.account.id ? false : true} component={this.purchaseInput}/>
+        <Field
+          name="amount"
+          disabled={this.props.account.id ? false : true}
+          component={this.purchaseInput}/>
       </form>
     )
   }
 }
 
 const validate = ({amount}) => {
-  const errors = {}
-  if (!amount) amount = " ";
-  if (amount.length < 1) {
+  let errors = {}
+  if (!amount) amount = ' ';
+  if (!amount) {
     errors.amount = 'Required';
-  }
-  if (isNaN(Number(amount))) {
+  } else if (isNaN(Number(amount))) {
     errors.amount = 'Must be a number';
   }
+  console.log('errors', errors, typeof errors)
   return errors
 }
 
+// const validate = ({amount}) => {
+//   const errors = {};
+//   if (!amount) amount = ' '
+//   if (!amount || amount.trim() === '') {
+//     errors.amount = 'Required';
+//   } else if (isNaN(Number(amount))) {
+//     errors.amount = 'Must be a number';
+//   }
+//   return errors;
+// }
 
 export default reduxForm({
   form: 'purchase',

@@ -12,7 +12,8 @@ const Header = (props)=>(
   <header className="App-header">
     <h1 className="App-title brand-color">{props.title}</h1>
     <Subtitle text="Make Sens of the World"/>
-    { !props.account.id && <Button className="App-login" size="big" onClick={() => window.open('https://metamask.io', '_blank')}>Sign in with MetaMask!</Button>}
+    {!props.account.id &&
+      <Button className="App-login" size="big" onClick={() => window.open('https://metamask.io', '_blank')}>Sign in with MetaMask!</Button>}
   </header>
 )
 

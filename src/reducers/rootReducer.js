@@ -62,6 +62,6 @@ const initialized = (state = false, action) =>{
   }
 }
 
-const rootReducer = combineReducers({tokens, account, contract, form, initialized});
+const rootReducer = combineReducers({form, tokens, account, contract, initialized});
 
 export default rootReducer;
