@@ -39,6 +39,7 @@
 
 .Header {
   height: 145px;
+  overflow: hidden;
 }
 
 .Login {
@@ -54,10 +55,10 @@
 }
 
 .Subtitle {
-  display: inline-block;
+  display: inline;
   font-size: 1.5em;
-  color: #aeaeae;
   font-weight: 300;
+  color: #aeaeae;
 }
 
 .Token {

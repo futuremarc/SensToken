@@ -16,12 +16,12 @@ import Aux from 'react-aux';
 
 class App extends React.Component {
 
-  constructor(props){
+  constructor(props) {
   	super();
   }
 
   componentWillMount() {
-    window.addEventListener('load', this.props.getContract);
+    window.addEventListener('load', this.props.getWeb3);
   }
 
   render() {
@@ -45,24 +45,24 @@ class App extends React.Component {
             </div>
           </Aux>
         }
-
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return{
     account: state.account, /*wallet address*/
-    contract: state.contract, /*contract instance*/
     tokens: state.tokens, /*token info (rate, totalsupply, maxsupply)*/
     form: state.form, /*redux form*/
+    contract: state.contract, /*contract instance*/
+    web3: state.web3, /*web3 object*/
     txConfirmation: state.txConfirmation, /*displays transaction success or fail*/
     appInitialized: appInitializedSelector(state) /*is app initialized, used for loader and polling metamask account changes*/
   }
 }
 
-const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actionCreators, dispatch)
 }
 

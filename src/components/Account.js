@@ -27,12 +27,12 @@ const Balance = (props) => {
 
 class Account extends React.Component{
 
-  txConfirmation(){
-    if (!this.props.txConfirmation.msg){
+  txConfirmation() {
+    if (!this.props.txConfirmation.msg) {
       return (
         <div></div>
       )
-    } else if (this.props.txConfirmation.isSuccess){
+    } else if (this.props.txConfirmation.isSuccess) {
       return (
         <div className="success-color Account-msg"><FaCheckCircle/>{this.props.txConfirmation.msg}</div>
       )
@@ -43,7 +43,7 @@ class Account extends React.Component{
     }
   }
 
-  render(){
+  render() {
     return (
       <div className="Account card">
         <Wallet {...this.props}/>

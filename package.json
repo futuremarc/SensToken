@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bignumber-to-string": "^0.1.4",
     "bignumber.js": "^4.1.0",
     "loaders.css": "^0.1.2",
     "prop-types": "^15.6.0",
