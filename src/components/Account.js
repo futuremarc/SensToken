@@ -11,7 +11,7 @@ const Wallet = (props) => {
   return (
     <Aux>
       <div>Your MetaMask Wallet</div>
-      <div>{ props.account.id ? props.account.id : <div className="error">Please install MetaMask to sign in</div> }</div>
+      <div>{ props.account.id ? props.account.id : <div className="error-color">Please install MetaMask to sign in</div> }</div>
     </Aux>
   )
 }
@@ -34,18 +34,18 @@ class Account extends React.Component{
       )
     } else if (this.props.txConfirmation.isSuccess){
       return (
-        <div className="success Account-msg"><FaCheckCircle/>{this.props.txConfirmation.msg}</div>
+        <div className="success-color Account-msg"><FaCheckCircle/>{this.props.txConfirmation.msg}</div>
       )
     } else {
       return (
-        <div className="error Account-msg"><FaExclamationCircle/>{this.props.txConfirmation.msg}</div>
+        <div className="error-color Account-msg"><FaExclamationCircle/>{this.props.txConfirmation.msg}</div>
       )
     }
   }
 
   render(){
     return (
-      <div className={this.props.classList}>
+      <div className="Account card">
         <Wallet {...this.props}/>
         <br/>
         <Balance {...this.props}/>

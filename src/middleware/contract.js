@@ -1,19 +1,11 @@
 import {GET_CONTRACT_DONE} from '../constants';
-import {getAccount, getTokens, initializeApp, getId} from '../actions/actionCreators';
+import {getAccount, getTokens} from '../actions/actionCreators';
 
 const contractMiddleware = store => next => action => {
   switch(action.type){
     case GET_CONTRACT_DONE:
       store.dispatch(getAccount());
       store.dispatch(getTokens());
-
-      if (!store.getState().initialized){
-        /*initialize polling for metamask account changes*/
-        store.dispatch(initializeApp());
-        setInterval(() => {
-          store.dispatch(getId());
-        }, 1000);
-      }
       next(action)
       break;
     default:

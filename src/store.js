@@ -1,13 +1,13 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-import rootReducer from './reducers/rootReducer';
+import rootReducer from './reducers/reducers';
 import createSagaMiddleware from 'redux-saga';
-import contractMiddleware from './middleware/contract';
-import tokensMiddleware from './middleware/tokens';
 import {createLogger} from 'redux-logger';
 import sagas from './sagas/sagas';
+import contractMiddleware from './middleware/contract';
+import accountMiddleware from './middleware/account';
 
-const sagaMiddleware = createSagaMiddleware()
 const composeSetup = process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+const sagaMiddleware = createSagaMiddleware()
 const logger = createLogger();
 
 const defaultState = {
@@ -30,7 +30,7 @@ const defaultState = {
 };
 
 const store = createStore(rootReducer, defaultState,
-  composeSetup(applyMiddleware(sagaMiddleware, contractMiddleware, logger) //logger
+  composeSetup(applyMiddleware(sagaMiddleware, contractMiddleware, accountMiddleware, logger) //logger
 ));
 sagaMiddleware.run(sagas);
 

@@ -3,22 +3,28 @@ import PropTypes from 'prop-types';
 import {Button} from 'semantic-ui-react';
 
 const Subtitle = (props)=>(
-  <p className="App-subtitle">
+  <span className="Subtitle">
     {props.text}
-  </p>
+  </span>
 )
 
 const Header = (props)=>(
-  <header className="App-header">
-    <h1 className="App-title brand-color">{props.title}</h1>
-    <Subtitle text="Make Sens of the World"/>
-    {!props.account.id &&
-      <Button className="App-login" size="big" onClick={() => window.open('https://metamask.io', '_blank')}>Sign in with MetaMask!</Button>}
+  <header className="Header">
+    <h1 className="Title brand-color">{props.title}</h1>
+    <Subtitle text={props.subtitle}/>
+    { !props.account.id &&
+      <Button
+        className="Login"
+        size="big"
+        onClick={() => window.open('https://metamask.io', '_blank')}>
+        Sign in with MetaMask!
+      </Button> }
   </header>
 )
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired
 };
 
 export default Header;

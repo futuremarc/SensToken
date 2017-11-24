@@ -7,7 +7,6 @@ import registerServiceWorker, {unregister as unregisterServiceWorker} from './re
 import 'semantic-ui-css/semantic.min.css';
 import './styles/semantic-ui-overrides.css';
 import './styles/index.css';
-
 import App from './components/App';
 
 ReactDOM.render(

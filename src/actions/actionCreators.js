@@ -38,9 +38,3 @@ export const setBuyFail = () =>{
     payload: 'TRANSACTION FAILED'
   }
 }
-
-export const initializeApp = () =>{
-  return{
-    type: INITILIZE_APP
-  }
-}

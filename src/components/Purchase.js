@@ -16,7 +16,7 @@ class Purchase extends React.Component{
     if (!this.props.account.id){
       return "disabled";
     } else if (error){
-      return "error";
+      return "error-color";
     } else {
       return "";
     }
@@ -55,7 +55,7 @@ class Purchase extends React.Component{
   render(){
     const {handleSubmit} = this.props;
     return(
-      <form className="Token-purchase" onSubmit={handleSubmit(this.onSubmit)}>
+      <form className="Purchase" onSubmit={handleSubmit(this.onSubmit)}>
         <Field
           name="amount"
           disabled={this.props.account.id ? false : true}
@@ -76,17 +76,6 @@ const validate = ({amount}) => {
   console.log('errors', errors, typeof errors)
   return errors
 }
-
-// const validate = ({amount}) => {
-//   const errors = {};
-//   if (!amount) amount = ' '
-//   if (!amount || amount.trim() === '') {
-//     errors.amount = 'Required';
-//   } else if (isNaN(Number(amount))) {
-//     errors.amount = 'Must be a number';
-//   }
-//   return errors;
-// }
 
 export default reduxForm({
   form: 'purchase',

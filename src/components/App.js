@@ -3,12 +3,15 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import store from '../store';
 import * as actionCreators from '../actions/actionCreators';
+import {appInitializedSelector} from '../selectors/selectors';
 
 import '../styles/App.css';
 
 import Header from './Header';
 import Account from './Account';
 import Token from './Token';
+import Loading from 'react-loading-animation';
+import Aux from 'react-aux';
 
 
 class App extends React.Component {
@@ -24,22 +27,25 @@ class App extends React.Component {
   render() {
 
     const headerProps = {
-      title: "SensToken"
-    };
-    const tokenProps = {
-      classList: "Token card"
-    };
-    const accountProps = {
-      classList: "Account card"
+      title: "SensToken",
+      subtitle: "Make Sens of the World"
     };
 
     return (
       <div className="App">
-        <Header {...headerProps} {...this.props}/>
-        <div className="App-body">
-          <Token {...tokenProps} {...this.props}/>
-          <Account {...accountProps} {...this.props}/>
-        </div>
+        {
+          !this.props.appInitialized ?
+            <div className="Loading"><Loading/></div>
+          :
+          <Aux>
+            <Header {...headerProps} {...this.props}/>
+            <div className="App-body">
+              <Token {...this.props}/>
+              <Account {...this.props}/>
+            </div>
+          </Aux>
+        }
+
       </div>
     );
   }
@@ -49,10 +55,10 @@ const mapStateToProps = (state) =>{
   return{
     account: state.account, /*wallet address*/
     contract: state.contract, /*contract instance*/
-    tokens: state.tokens, /*wallet address*/
+    tokens: state.tokens, /*token info (rate, totalsupply, maxsupply)*/
     form: state.form, /*redux form*/
-    txConfirmation: state.txConfirmation, /*displays transaction success or fail */
-    appInitialized: state.appInitialized /*is app initialized, used for loader and polling metamask account changes*/
+    txConfirmation: state.txConfirmation, /*displays transaction success or fail*/
+    appInitialized: appInitializedSelector(state) /*is app initialized, used for loader and polling metamask account changes*/
   }
 }
 
