@@ -1,5 +1,5 @@
 # SensToken
-A token sale for SenseTokens built with react, redux, and solidity
+A token sale dApp for SensTokens built with react, redux, and solidity
 
 ## Install
 
