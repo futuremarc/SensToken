@@ -35,7 +35,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "dev": "npm run migrate:local && npm run start"
   },
   "devDependencies": {},
   "homepage": "https://futuremarc.github.io/SensToken"

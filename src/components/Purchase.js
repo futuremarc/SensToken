@@ -25,7 +25,7 @@ class Purchase extends React.Component{
   }
 
   buttonDisabled(error){
-    if (!this.props.account.id || error){
+    if (!this.props.account.id || error || this.props.txStatus.pending === true){
       return true;
     } else {
       return false;
