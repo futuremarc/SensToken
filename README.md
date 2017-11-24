@@ -28,4 +28,5 @@ Migrates the contract to your local network on port `9545`
 
 ## TO DO
 
-Write unit tests for contracts and redux actions, reducers, selectors, sagas, or other middleware.
+* Write unit tests for contracts and redux actions, reducers, selectors, sagas, or other middleware.
+* Detect account changes in MetaMask (Will probably wait for a better way to listen for account changes than the  recommended `setInterval`...)
