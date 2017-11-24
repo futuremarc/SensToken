@@ -51,7 +51,7 @@ class Purchase extends React.Component{
   submit({amount}, dispatch){
     if (!amount) return       /*this manually validates and works against redux-form philosophy, fix later*/
     return new Promise((resolve, reject) => dispatch(buyTokens(amount,resolve,reject)))
-    .then(this.props.reset).catch((error)=> throw new SubmissionError(error));
+    .then(this.props.reset).catch((error)=> {throw new SubmissionError(error)});
   }
 
   render() {

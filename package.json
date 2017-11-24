@@ -28,7 +28,7 @@
   "scripts": {
     "migrate:rinkeby": "truffle migrate --network rinkeby",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && truffle migrate --reset",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
