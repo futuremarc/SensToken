@@ -12,7 +12,7 @@ const getBalance = (web3, contract, id) => {
 
 const getId = (web3, contract) => {
   const web3Inject = !web3.currentProvider.host;
-  if (web3Inject) return web3.eth.getAccounts().then((accounts) => accounts[0])
+  if (web3Inject) return web3.eth.getAccounts().then((accounts) => accounts[0] || false)
   else return false;
 };
 

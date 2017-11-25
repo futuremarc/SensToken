@@ -36,7 +36,7 @@ class Purchase extends React.Component{
     const hasError = ((error))
     return (
       <Aux>
-        <div>Enter amount to purchase</div>
+        <div className="medium-small-font">Enter amount to purchase</div>
         <Input
           size="big"
           error={hasError}

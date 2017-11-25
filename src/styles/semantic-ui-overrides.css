@@ -25,7 +25,6 @@ div.ui.big.input > ::placeholder {
   text-align: right !important;
 }
 
-
 div.ui.big.error.input > input {
   border-color: #fc2d3a !important;
 }
