@@ -1,4 +1,4 @@
-button.ui.button{
+button.ui.button {
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 400 !important;
   text-transform: uppercase !important;
@@ -9,26 +9,22 @@ button.ui.button{
   padding-bottom: 13px !important;
 }
 
-button.ui.button:disabled{
+button.ui.button:disabled {
   background-color: #888 !important;
 }
 
-button.ui.big.button:hover {
+button.ui.button:hover {
   background-color: #080BE2 !important;
 }
 
-button.ui.big.button:hover {
-  background-color: #080BE2 !important;
-}
-
-div.ui.big.input > ::placeholder {
+div.ui.input > ::placeholder {
   text-align: right !important;
 }
 
-div.ui.big.error.input > input {
+div.ui.error.input > input {
   border-color: #fc2d3a !important;
 }
 
-div.ui.big.input {
+div.ui.input {
   width:50% !important;
 }
