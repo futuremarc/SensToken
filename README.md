@@ -14,11 +14,11 @@ Assuming you have Truffle 4 (`npm install -g truffle`) running in `truffle devel
 
 ### `npm run build`
 
-Builds the app for production.
+Builds the app for production and compiles the contracts.
 
 ### `npm run migrate:rinkeby`
 
-Migrates the contract to the rinkeby network
+Migrates the contract to the rinkeby network. A local rpc must be running on port `9546`
 
 ### `npm run migrate:local`
 

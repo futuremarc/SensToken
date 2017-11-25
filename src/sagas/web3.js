@@ -1,13 +1,15 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import Web3 from 'web3';
-import config from '../config';
 import {GET_WEB3, GET_WEB3_DONE} from '../constants';
+
+let rpcUrl;
+process.env.NODE_ENV !== 'production' ? rpcUrl = 'http://localhost:9545' : rpcUrl = 'https://rinkeby.infura.io/';
 
 const getWeb3 = () => {
   if (window.web3) {
     window.web3 = new Web3(window.web3.currentProvider);
   }else {
-    window.web3 = new Web3(new Web3.providers.HttpProvider(config.rpcUrl));
+    window.web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
   }
   return window.web3;
 }

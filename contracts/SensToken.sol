@@ -5,7 +5,7 @@ import 'zeppelin-solidity/contracts/token/StandardToken.sol';
 contract SensToken is StandardToken {
 
   address public owner = msg.sender;
-  string public constant NAME = 'Sens Token';
+  string public constant NAME = 'SensToken';
   string public constant SYMBOL = 'SENS';
   uint32 public constant DECIMALS = 18;
   uint256 public constant ETHER_CAP = 1000000 ether;

@@ -1,7 +1,7 @@
 var HDWalletProvider = require("truffle-hdwallet-provider");
+var config = require("./config/eth");
 
 module.exports = {
-  ontracts_build_directory: "./output",
   networks: {
     development: {
       host: "localhost",
@@ -12,7 +12,7 @@ module.exports = {
       host: "localhost",
       port: 9546,
       network_id: 4,
-      from: "0x821aEa9a577a9b44299B9c15c88cf3087F3b5544",
+      from: config.rinkeby.wallet,
       gas: 6721975
     },
   	solc: {
@@ -23,15 +23,15 @@ module.exports = {
   	},
   rinkeby: {
     provider: function() {
-      return new HDWalletProvider("slender lyrics cloud rifle author enhance tray jelly vapor item blame coin", "https://rinkeby.infura.io/");
+      return new HDWalletProvider(config.rinkeby.mnemonic, "https://rinkeby.infura.io/");
     },
-    network_id: '4'
+    network_id: 4
   },
   test: {
     provider: function() {
-      return new HDWalletProvider("senior field myself usage spare purse lecture worry harsh mercy interest exile", "http://localhost:8546/");
+      return new HDWalletProvider(config.local.mnemonic, "http://localhost:8546/");
     },
-    network_id: '*'
+    network_id: "*"
   },
   }
 };
