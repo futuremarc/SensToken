@@ -29,7 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && truffle compile && cp build/contracts/SensToken.json src/Token.json",
     "predeploy": "npm run build",
-    "deploy": "migrate:rinkeby && gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "dev": "npm run migrate:local && npm run start"
   },
