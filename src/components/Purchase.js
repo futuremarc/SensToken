@@ -36,7 +36,7 @@ class Purchase extends React.Component{
     const hasError = ((error))
     return (
       <Aux>
-        {hasError ? <div className="error-color"><FaExclamationCircle/>{error}</div> : <div>Enter amount to purchase</div>}
+        <div>Enter amount to purchase</div>
         <Input
           size="big"
           error={hasError}
@@ -44,6 +44,7 @@ class Purchase extends React.Component{
           {...input}
           {...custom} />
         <Button size="big" loading={!this.props.txStatus.pending ? false : true } disabled={this.buttonDisabled(hasError)} type="submit">Purchase</Button>
+        {hasError ? <div className="error-color"><FaExclamationCircle/>{error}</div> : <div></div>}
       </Aux>
     )
   }

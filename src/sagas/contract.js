@@ -1,6 +1,6 @@
 import {takeEvery, call, put, select} from 'redux-saga/effects';
 import TruffleContract from 'truffle-contract';
-import TokenArtifact from '../SensToken.json';
+import TokenArtifact from '../Token.json';
 import {GET_CONTRACT, GET_CONTRACT_DONE} from '../constants';
 
 
