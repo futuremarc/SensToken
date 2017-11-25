@@ -27,7 +27,7 @@
     "migrate:rinkeby": "truffle migrate --network rinkeby && cp build/contracts/SensToken.json src/Token.json",
     "migrate:local": "truffle migrate --reset && cp build/contracts/SensToken.json src/Token.json",
     "start": "react-scripts start",
-    "build": "react-scripts build && truffle compile && cp build/contracts/SensToken.json src/Token.json",
+    "build": "npm run migrate:rinkeby && cp build/contracts/SensToken.json src/Token.json && react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
