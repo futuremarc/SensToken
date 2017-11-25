@@ -53,7 +53,7 @@ class Purchase extends React.Component{
   }
 
   submit({amount}, dispatch){
-    if (!amount) return       /*temporary... this line manually validates and works against redux-form philosophy*/
+    if (!amount) return       /*temporary... see validate function*/
     return new Promise((resolve, reject) => dispatch(buyTokens(amount,resolve,reject)))
     .then(this.props.reset).catch((error)=> {throw new SubmissionError(error)});
   }
@@ -71,12 +71,10 @@ class Purchase extends React.Component{
   }
 }
 
-const validate = (values, props) => {
+const validate = ({amount}, props) => {
   let errors = {}
-  if (props.pristine && values.amount === undefined) return /*exit validate on initial render b/c redux-form shouldValidate not working*/
-  if (!values.amount || values.amount.trim() === '') {
-    errors.amount = 'Required';
-  } else if (isNaN(Number(values.amount))) {
+  if (props.pristine && amount === undefined) return /*exit validate on initial render redux-form shouldValidate not working?*/
+  if (isNaN(Number(amount))) {
     errors.amount = 'Please enter a number.';
   }
   return errors
