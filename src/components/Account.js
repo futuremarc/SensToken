@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
-import FaCheckCircle from 'react-icons/lib/fa/check-circle';
-import FaExclamationCircle from 'react-icons/lib/fa/exclamation-circle';
-import FaClockO from 'react-icons/lib/fa/clock-o';
+import Message from './Message';
 
 const Wallet = (props) => {
   return (
@@ -31,24 +29,27 @@ class Account extends React.Component{
       return (
         <div></div>
       )
-    } else if (this.props.txStatus.isSuccess === true) {
-      const amountStyle={
+    } else {
+      let type;
+      if (this.props.txStatus.isSuccess === true) type = 'success';
+      else if (this.props.txStatus.pending === true) type = 'pending';
+      else if (this.props.txStatus.isSuccess === false) type = 'error';
+
+      const messageProps = {
+        text: this.props.txStatus.msg,
+        type: type
+      };
+      const amountStyle = {
         marginTop: '10px'
       };
       return (
         <Aux>
-          <div className="success-color msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
-          <div style={amountStyle}>You recently purchased {numberWithCommas(this.props.txStatus.amount)} {this.props.tokens.symbol}.
-          </div>
+          <Message {...messageProps}/>
+          {
+            this.props.txStatus.isSuccess &&
+            <div style={amountStyle}>You recently purchased {numberWithCommas(this.props.txStatus.amount)} {this.props.tokens.symbol}.</div>
+          }
         </Aux>
-      )
-    } else if (this.props.txStatus.pending === true) {
-      return (
-        <div className="msg"><FaClockO/>{this.props.txStatus.msg}</div>
-      )
-    } else if (this.props.txStatus.isSuccess === false) {
-      return (
-        <div className="error-color msg"><FaExclamationCircle/>{this.props.txStatus.msg}</div>
       )
     }
   }

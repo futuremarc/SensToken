@@ -25,12 +25,12 @@
   color: #1fca23;
 }
 
-.msg {
+.Message {
   text-transform: uppercase;
   padding-top: 14px;
 }
 
-.msg > svg {
+.Message > svg {
   margin-bottom:3.1px;  /*react icons overrides*/
   margin-right:3px;
 }

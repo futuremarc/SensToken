@@ -3,8 +3,7 @@ import {Input, Button} from 'semantic-ui-react';
 import {Field, reduxForm, SubmissionError} from 'redux-form';
 import {buyTokens} from '../actions/actionCreators';
 import Aux from 'react-aux';
-import FaExclamationCircle from 'react-icons/lib/fa/exclamation-circle';
-
+import Message from './Message';
 
 class Purchase extends React.Component{
 
@@ -34,8 +33,12 @@ class Purchase extends React.Component{
 
   purchaseInput({input, meta: {error}, ...custom}){
     const hasError = (error !== undefined);
-    const labelStyle={
+    const labelStyle = {
       marginBottom: '7px'
+    };
+    const messageProps = {
+      text: error,
+      type: 'error'
     };
     return (
       <Aux>
@@ -46,8 +49,13 @@ class Purchase extends React.Component{
           placeholder={this.props.tokens.symbol}
           {...input}
           {...custom} />
-        <Button size="big" loading={!this.props.txStatus.pending ? false : true } disabled={this.buttonDisabled(hasError)} type="submit">Purchase</Button>
-        {hasError ? <div className="error-color msg"><FaExclamationCircle/>{error}</div> : <div></div>}
+        <Button
+          type="submit"
+          size="big"
+          loading={!this.props.txStatus.pending ? false : true }
+          disabled={this.buttonDisabled(hasError)}>Purchase
+        </Button>
+        {hasError ? <Message {...messageProps}/> : <div></div>}
       </Aux>
     )
   }
