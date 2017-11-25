@@ -24,6 +24,11 @@ Migrates the contract to the rinkeby network. A local rpc must be running on por
 
 Migrates the contract to your local network on port `9545`
 
+### `npm run deploy`
+
+Migrates the contract to your rinkeby and deploys to gh-pages
+
+
 ## TO DO
 * Handle when users have MetaMask but not being signed in, currently hangs
 * Clear warning when users are on a network without the contract deployed
