@@ -31,7 +31,8 @@
 }
 
 .msg > svg {
-  margin-bottom:3.1px;
+  margin-bottom:3.1px;  /*react icons overrides*/
+  margin-right:3px;
 }
 
 .card {
