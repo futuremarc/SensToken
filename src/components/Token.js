@@ -7,7 +7,7 @@ import {numberWithCommas} from '../helpers';
 const Rate = (props) => {
   return (
     <div className="Token-item">
-      <div>Tokens per 1 ETH</div> <div className="medium-font">{numberWithCommas(props.tokens.rate)} SENS</div>
+      <div>Tokens per 1 ETH</div> <div className="medium-font">{numberWithCommas(props.tokens.rate)} {props.tokens.symbol}</div>
     </div>
   )
 }

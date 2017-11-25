@@ -8,14 +8,20 @@ export const contractSelector = (state) => state.contract;
 export const tokensSelector = (state) => state.tokens;
 export const accountSelector = (state) => state.account;
 
-const getRate = (contract) => {
-  return contract.RATE().then(result => result.c[0]); /*convert from bignumber instead?*/
+const getRate = (web3, contract) => {
+  return contract.RATE().then(result => result.toNumber()); /*convert from bignumber instead?*/
 }
 const getTotalSupply= (web3, contract) => {
   return contract.totalSupply().then(result => web3.utils.fromWei(BNtoString(result), "ether")).catch((error) => error.message);
 }
 const getMaxSupply = (web3, contract) => {
   return contract.MAX_TOKENS().then(result => web3.utils.fromWei(BNtoString(result), "ether")).catch((error) => error.message);
+}
+const getName = (contract) => {
+  return contract.NAME().then(result => result).catch((error) => error.message);
+}
+const getSymbol = (contract) => {
+  return contract.SYMBOL().then(result => result).catch((error) => error.message);
 }
 
 const buyTokens = (web3, contract, id, rate, amount) => {
@@ -34,10 +40,12 @@ const buyTokens = (web3, contract, id, rate, amount) => {
 function* callGetTokens() {
   const web3 = yield select(web3Selector);
   const contract = yield select(contractSelector);
-  const rate = yield call(getRate, contract);
+  const rate = yield call(getRate, web3, contract);
   const totalSupply = yield call(getTotalSupply, web3, contract);
   const maxSupply = yield call(getMaxSupply, web3, contract);
-  const tokens = {rate, totalSupply, maxSupply};
+  const name = yield call(getName, contract);
+  const symbol = yield call(getSymbol, contract);
+  const tokens = {rate, totalSupply, maxSupply, name, symbol};
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 }
 

@@ -32,15 +32,15 @@ class Purchase extends React.Component{
     }
   }
 
-  purchaseInput({input, meta: {touched, error, active, invalid}, ...custom}){
-    const hasError = ((error))
+  purchaseInput({input, meta: {error}, ...custom}){
+    const hasError = (error !== undefined)
     return (
       <Aux>
         <div className="medium-small-font">Enter amount to purchase</div>
         <Input
           size="big"
           error={hasError}
-          placeholder="SENS"
+          placeholder={this.props.tokens.symbol}
           {...input}
           {...custom} />
         <Button size="big" loading={!this.props.txStatus.pending ? false : true } disabled={this.buttonDisabled(hasError)} type="submit">Purchase</Button>
@@ -50,7 +50,7 @@ class Purchase extends React.Component{
   }
 
   submit({amount}, dispatch){
-    if (!amount) return       /*this manually validates and works against redux-form philosophy, fix later*/
+    if (!amount) return       /*temporary... this line manually validates and works against redux-form philosophy*/
     return new Promise((resolve, reject) => dispatch(buyTokens(amount,resolve,reject)))
     .then(this.props.reset).catch((error)=> {throw new SubmissionError(error)});
   }

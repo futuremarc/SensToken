@@ -19,7 +19,7 @@ const Balance = (props) => {
   return (
     <Aux>
       <div>Your Token Balance</div>
-      <div className="brand-color medium-font">{numberWithCommas(props.account.balance)} SENS</div>
+      <div className="brand-color medium-font">{numberWithCommas(props.account.balance)} {props.tokens.symbol}</div>
     </Aux>
   )
 }

@@ -26,7 +26,7 @@ class App extends React.Component {
   render() {
 
     const headerProps = {
-      title: "SensToken",
+      title: this.props.tokens.name,
       subtitle: "Make Sens of the World"
     };
 
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => {
     contract: state.contract, /*contract instance*/
     web3: state.web3, /*web3 object*/
     txStatus: state.txStatus, /*displays transaction success, fail, pending*/
-    appInitialized: appInitializedSelector(state) /*is app initialized, used for loader and polling metamask account changes*/
+    appInitialized: appInitializedSelector(state) /*is app initialized, used for loader*/
   }
 }
 

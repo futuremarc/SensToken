@@ -16,7 +16,9 @@ const defaultState = {
   tokens: {
     rate: 0,
     totalSupply: 0,
-    maxSupply: 0
+    maxSupply: 0,
+    name: '',
+    symbol: ''
   },
   account: {
     balance:0,
