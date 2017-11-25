@@ -33,15 +33,15 @@ class Account extends React.Component{
       )
     } else if (this.props.txStatus.isSuccess === true) {
       return (
-        <div className="success-color Account-msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
+        <div className="success-color msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
       )
     } else if (this.props.txStatus.pending === true) {
       return (
-        <div className="Account-msg"><FaClockO/>{this.props.txStatus.msg}</div>
+        <div className="msg"><FaClockO/>{this.props.txStatus.msg}</div>
       )
     } else if (this.props.txStatus.isSuccess === false) {
       return (
-        <div className="error-color Account-msg"><FaExclamationCircle/>{this.props.txStatus.msg}</div>
+        <div className="error-color msg"><FaExclamationCircle/>{this.props.txStatus.msg}</div>
       )
     }
   }
