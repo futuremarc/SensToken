@@ -26,7 +26,7 @@ const getSymbol = (contract) => {
 
 const buyTokens = (web3, contract, id, rate, amount) => {
   const value = amount/rate;
-  return contract.createTokens({value:web3.utils.toWei(String(value), "ether"), gas:200000, from:id})
+  return contract.createTokens({value:web3.utils.toWei(String(value), "ether"), from:id})
   .then((result)=> {
     for (var i = 0; i < result.logs.length; i++) {
       var log = result.logs[i];
@@ -55,19 +55,20 @@ function* callBuyTokens({payload}) {
   const contract = yield select(contractSelector);
   const tokens = yield select(tokensSelector);
   const account = yield select(accountSelector);
-  let boughtTokens = yield call(buyTokens, web3, contract, account.id, tokens.rate, amount);
-  if (boughtTokens.transactionHash) {
+  const result = yield call(buyTokens, web3, contract, account.id, tokens.rate, amount);
+  if (result.transactionHash) {
     yield call(resolve);
-    const totalSupply = boughtTokens.args.totalSupply;
-    const balance = boughtTokens.args.balance;
-    boughtTokens = {
+    const totalSupply = result.args.totalSupply;
+    const balance = result.args.balance;
+    const payload = {
       totalSupply : web3.utils.fromWei(BNtoString(totalSupply), "ether"),
-      balance : web3.utils.fromWei(BNtoString(balance), "ether")
+      balance : web3.utils.fromWei(BNtoString(balance), "ether"),
+      amount: amount
     };
-    yield put({ type: BUY_TOKENS_DONE, payload: boughtTokens });
+    yield put({ type: BUY_TOKENS_DONE, payload });
   }else {
     yield call(reject);
-    yield put({ type: BUY_TOKENS_FAILED, payload : boughtTokens }); /*contains error object*/
+    yield put({ type: BUY_TOKENS_FAILED, payload }); /*contains error object*/
   }
 }
 

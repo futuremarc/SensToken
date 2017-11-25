@@ -74,6 +74,7 @@ const txStatus = (state = {}, action) => {
       return {
         isSuccess: true,
         pending: false,
+        amount: action.payload.amount,
         msg: 'transaction succeeded!'
       };
     case BUY_TOKENS_FAILED:

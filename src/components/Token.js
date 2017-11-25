@@ -28,12 +28,16 @@ const TotalSupply = (props) => {
   )
 }
 
+const purchaseProps = {
+  form: "''" /*override form state w/empty string per redux-form API*/
+}
+
 const Token = (props)=>(
   <div className="Token card">
     <Rate {...props}/>
     <MaxSupply {...props}/>
     <TotalSupply {...props}/>
-    <Purchase {...props} form="''"/> {/* override form state w/empty string per redux-form API*/}
+    <Purchase {...props} {...purchaseProps}/>
   </div>
 )
 

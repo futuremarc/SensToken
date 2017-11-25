@@ -32,8 +32,15 @@ class Account extends React.Component{
         <div></div>
       )
     } else if (this.props.txStatus.isSuccess === true) {
+      const amountStyle={
+        marginTop: '10px'
+      };
       return (
-        <div className="success-color msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
+        <Aux>
+          <div className="success-color msg"><FaCheckCircle/>{this.props.txStatus.msg}</div>
+          <div style={amountStyle}>You recently purchased {numberWithCommas(this.props.txStatus.amount)} {this.props.tokens.symbol}.
+          </div>
+        </Aux>
       )
     } else if (this.props.txStatus.pending === true) {
       return (

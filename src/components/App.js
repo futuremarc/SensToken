@@ -37,7 +37,7 @@ class App extends React.Component {
             <div className="Loading"><Loading/></div>
           :
           <Aux>
-            <Header {...headerProps} {...this.props}/>
+            <Header {...this.props} {...headerProps}/>
             <div className="App-body">
               <Token {...this.props}/>
               <Account {...this.props}/>

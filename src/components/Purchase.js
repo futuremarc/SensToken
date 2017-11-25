@@ -33,10 +33,13 @@ class Purchase extends React.Component{
   }
 
   purchaseInput({input, meta: {error}, ...custom}){
-    const hasError = (error !== undefined)
+    const hasError = (error !== undefined);
+    const labelStyle={
+      marginBottom: '7px'
+    };
     return (
       <Aux>
-        <div className="medium-small-font">Enter amount to purchase</div>
+        <div style={labelStyle}>Enter amount to purchase</div>
         <Input
           size="big"
           error={hasError}
