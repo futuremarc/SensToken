@@ -58,8 +58,7 @@ const styles = {
   }
 };
 
-const mapStateToProps = (state) => {
-  const {wallet, tokens, form, contract, web3, txStatus, appInitialized} = state;
+const mapStateToProps = ({wallet, tokens, form, contract, web3, txStatus}) => {
   return {
     wallet, /*wallet id and balance*/
     tokens, /*token info (rate, totalsupply, maxsupply, symbol, name)*/
@@ -69,11 +68,11 @@ const mapStateToProps = (state) => {
     txStatus, /*transaction success, fail, pending, msg*/
     appInitialized: appInitializedSelector(state) /*is app initialized*/
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actionCreators, dispatch)
-}
+};
 
 export default injectSheet(styles)(
   connect(mapStateToProps, mapDispatchToProps)(App)
