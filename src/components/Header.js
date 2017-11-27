@@ -58,7 +58,7 @@ const styles = theme => ({
   login:{
     position: 'absolute',
     right: '40px',
-    top: '40px'
+    top: '45px'
   },
   brandColor: theme.brandColor
 });

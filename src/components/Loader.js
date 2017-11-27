@@ -17,4 +17,4 @@ const styles = {
   }
 };
 
-export default injectSheet(styles)(Loader)
+export default injectSheet(styles)(Loader);
