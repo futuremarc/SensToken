@@ -37,7 +37,7 @@ Tests the solidity contracts and react app.
 
 
 ## TO DO
-* Add tip to check metamask popup.
-* Add tip to add contract address to metamask afterwords.
-* Detect account and network changes from MetaMask.
+* Add tip to check MetaMask popup on purchase.
+* Add tip to add contract address into MetaMask Tokens list afterwords.
+* Handle account and network changes from MetaMask.
 * Write unit tests.
