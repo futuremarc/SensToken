@@ -17,6 +17,10 @@ const getName = (contract) => {
 const getSymbol = (contract) => {
   return contract.SYMBOL().then(result => result).catch((error) => error.message);
 };
+const getTagline = (contract) => {
+  return contract.TAGLINE().then(result => result).catch((error) => error.message);
+};
+
 
 const buyTokens = (web3, contract, id, rate, amount) => {
   const value = amount/rate;
@@ -39,7 +43,8 @@ function* callGetTokens() {
   const maxSupply = yield call(getMaxSupply, web3, contract);
   const name = yield call(getName, contract);
   const symbol = yield call(getSymbol, contract);
-  const tokens = {rate, totalSupply, maxSupply, name, symbol};
+  const tagline = yield call(getTagline, contract);
+  const tokens = {rate, totalSupply, maxSupply, name, symbol, tagline};
   yield put({ type: GET_TOKENS_DONE, payload : tokens });
 };
 

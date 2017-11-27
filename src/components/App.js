@@ -26,9 +26,8 @@ class App extends React.Component {
     const {props} = this;
     const headerProps = {
       title: tokens.name,
-      subTitle: "Make Sens of the World"
+      subTitle: tokens.tagline
     };
-
     return (
       <ThemeProvider theme={theme}>
         <div className={app}>
@@ -50,7 +49,7 @@ class App extends React.Component {
 const styles = {
   app: {
     color: '#333',
-    background: '#f2f2f2',
+    backgroundColor: '#f2f2f2',
     fontSize: '.95em',
     fontWeight: '300',
     fontFamily: '"Montserrat", sans-serif',
@@ -58,9 +57,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({wallet, tokens, form, contract, web3, txStatus}) => {
+const mapStateToProps = (state) => {
+  const {wallet, tokens, form, contract, web3, txStatus} = state;
   return {
-    wallet, /*wallet id and balance*/
+    wallet, /*wallet id, balance, network*/
     tokens, /*token info (rate, totalsupply, maxsupply, symbol, name)*/
     form, /*redux form*/
     contract, /*contract instance*/

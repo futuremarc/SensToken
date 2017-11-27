@@ -65,7 +65,7 @@ const styles = theme => ({
     wordWrap: 'break-word',
     verticalAlign: 'top',
     '@media only screen and (max-width: 915px)': {
-      width:'100%',
+      width: '100%',
       minWidth: '505px'
     }
   },
@@ -74,6 +74,6 @@ const styles = theme => ({
   },
   mediumFont: theme.mediumFont,
   card: theme.card
-})
+});
 
 export default injectSheet(styles)(Token);

@@ -2,7 +2,9 @@ import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
 import {INITIALIZE_APP, GET_WEB3_DONE} from '../constants';
-import {GET_WALLET_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
+import {GET_WALLET_DONE, GET_WALLET_FAILED} from '../constants';
+import {GET_TOKENS_DONE} from '../constants';
+import {GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
 import {BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
 const wallet = (state = {}, action) => {
@@ -10,7 +12,12 @@ const wallet = (state = {}, action) => {
     case GET_WALLET_DONE:
       return {
         ...state,
-        ...action.payload /*id balance*/
+        ...action.payload /*id balance network*/
+      };
+    case GET_WALLET_FAILED:
+      return {
+        ...state,
+        ...action.payload /*balance network*/
       };
     case BUY_TOKENS_DONE:
       return {

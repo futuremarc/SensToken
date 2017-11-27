@@ -3,7 +3,7 @@ import {GET_TOKENS, BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../con
 import {GET_WALLET} from '../constants';
 
 
-export const getAccount = () => {
+export const getWallet = () => {
   return {
     type: GET_WALLET
   }

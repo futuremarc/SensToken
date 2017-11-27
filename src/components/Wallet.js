@@ -4,16 +4,17 @@ import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
 import Message from './Message';
 import injectSheet from 'react-jss';
+import {DEPLOYED_NETWORK_NAME} from '../constants';
+
 
 const Wallet = (props) => {
+  const {contract} = props;
   const {id} = props.wallet;
-  const {errorColor, walletItem} = props.classes;
+  const {walletItem, errorColor} = props.classes;
   return (
     <div className={walletItem}>
       <div>Your MetaMask Wallet</div>
-      {
-        id  ?
-        id : <div className={errorColor}>Please install MetaMask to sign in.</div> }
+      {getWalletStatus(id, contract, errorColor)}
     </div>
   )
 };
@@ -31,7 +32,27 @@ const Balance = ({tokens, wallet, classes}) => {
   )
 };
 
-const txStatus = ({txStatus, tokens, classes}) => {
+const getWalletStatus = (id, contract, errorColor) => {
+  if (contract.stack){   /*wrong network*/
+    return(
+      <div
+        className={errorColor}>
+        {`Please use the ${DEPLOYED_NETWORK_NAME}.`}
+      </div>
+    )
+  } else if (id){    /*all good*/
+    return id
+  } else {           /*no metamask*/
+    return(
+      <div
+        className={errorColor}>
+        Please install MetaMask to sign in.
+      </div>
+    )
+  }
+};
+
+const getTxStatus = ({txStatus, tokens, classes}) => {
   const {amount} = classes;
   if (!txStatus.msg) return (<div></div>);
   let type;
@@ -63,7 +84,7 @@ const Account = (props) => {
       <Wallet {...props}/>
       <Balance {...props}/>
       <div className={walletItem}>
-        {txStatus(props)}
+        {getTxStatus(props)}
       </div>
     </div>
   )

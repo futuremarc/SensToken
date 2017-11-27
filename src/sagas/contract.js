@@ -28,7 +28,6 @@ function* callGetContract() {
   if (contract.address){
     yield put({ type: GET_CONTRACT_DONE, payload : {contract} });
   } else{
-    contract.failed = true /*check for this in selector to start app anyway*/
     yield put({ type: GET_CONTRACT_FAILED, payload : {contract} });
   }
 };

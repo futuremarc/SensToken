@@ -12,3 +12,5 @@ export const GET_CONTRACT_FAILED = 'GET_CONTRACT_FAILED';
 export const BUY_TOKENS = 'BUY_TOKENS';
 export const BUY_TOKENS_DONE = 'BUY_TOKENS_DONE';
 export const BUY_TOKENS_FAILED = 'BUY_TOKENS_FAILED';
+
+export const DEPLOYED_NETWORK_NAME = 'Rinkeby Network';

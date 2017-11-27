@@ -12,9 +12,9 @@ const appInitializedSelector = createSelector(
   contractSelector,
   (wallet, tokens, web3, contract) => {
     const deployedOnNet = (wallet !== '' && Object.keys(tokens).length !== 0);
-    const notDeployed = (web3.eth && contract.failed); /*load app even if app not deployed on this net*/
+    const notDeployed = (web3.eth && contract.stack); /*check if another network*/
     return ( deployedOnNet || notDeployed );
   }
-)
+);
 
 export {appInitializedSelector};

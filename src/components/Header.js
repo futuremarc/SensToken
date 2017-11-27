@@ -50,7 +50,7 @@ const styles = theme => ({
     padding: '35px 5px 10px 45px'
   },
   subTitle: {
-    display: 'inline',
+    display: 'inline-block',
     fontSize: '1.5em',
     fontWeight: '300',
     color: '#aeaeae'

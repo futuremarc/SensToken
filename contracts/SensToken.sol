@@ -7,6 +7,7 @@ contract SensToken is StandardToken {
   address public owner = msg.sender;
   string public constant NAME = 'SensToken';
   string public constant SYMBOL = 'SENS';
+  string public constant TAGLINE = 'Make Sens of the World';
   uint32 public constant DECIMALS = 18;
   uint256 public constant ETHER_CAP = 1000000 ether;
   uint32 public constant RATE = 500;

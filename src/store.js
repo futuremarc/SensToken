@@ -19,7 +19,8 @@ const defaultState = {
     totalSupply: 0,
     maxSupply: 0,
     name: '',
-    symbol: ''
+    symbol: '',
+    tagline: ''
   },
   wallet: {
     balance:0,
