@@ -3,9 +3,6 @@ import TruffleContract from 'truffle-contract';
 import TokenArtifact from '../Token.json';
 import {GET_CONTRACT, GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
 
-
-const web3Selector = (state) => state.web3;
-
 const getContract = (web3) => {
   let contract = TruffleContract(TokenArtifact);
   contract.setProvider(web3.currentProvider);
@@ -19,8 +16,11 @@ const getContract = (web3) => {
     };
   }
   /*truffle-contract work around end*/
-  return contract.deployed().then(instance => instance).catch(error => error);
-}
+
+  return contract.deployed()
+  .then(instance => instance)
+  .catch(error => error);
+};
 
 function* callGetContract() {
   const web3 = yield select(web3Selector);
@@ -31,13 +31,12 @@ function* callGetContract() {
     contract.failed = true /*check for this in selector to start app anyway*/
     yield put({ type: GET_CONTRACT_FAILED, payload : {contract} });
   }
-
-}
-
+};
 
 function* getContractSaga() {
   yield takeEvery(GET_CONTRACT, callGetContract);
-}
+};
 
+const web3Selector = (state) => state.web3;
 
 export {getContractSaga};

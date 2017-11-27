@@ -1,5 +1,5 @@
 import {fork, all} from 'redux-saga/effects';
-import {getAccountSaga} from './account';
+import {getAccountSaga} from './wallet';
 import {getWeb3Saga} from './web3';
 import {getContractSaga} from './contract';
 import {buyTokensSaga, getTokensSaga} from './tokens';

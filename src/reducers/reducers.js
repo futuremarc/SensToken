@@ -2,12 +2,12 @@ import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
 import {INITIALIZE_APP, GET_WEB3_DONE} from '../constants';
-import {GET_ACCOUNT_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
+import {GET_WALLET_DONE, GET_TOKENS_DONE, GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
 import {BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
 
-const account = (state = {}, action) => {
+const wallet = (state = {}, action) => {
   switch (action.type){
-    case GET_ACCOUNT_DONE:
+    case GET_WALLET_DONE:
       return {
         ...state,
         ...action.payload /*id balance*/
@@ -20,7 +20,7 @@ const account = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const tokens = (state = {}, action) => {
   switch (action.type){
@@ -37,7 +37,7 @@ const tokens = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const contract = (state = {}, action) => {
   switch (action.type){
@@ -48,7 +48,7 @@ const contract = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const web3 = (state = {}, action) => {
   switch (action.type){
@@ -57,7 +57,7 @@ const web3 = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const appInitialized = (state = false, action) => {
   switch (action.type){
@@ -66,7 +66,7 @@ const appInitialized = (state = false, action) => {
     default:
       return state;
   }
-}
+};
 
 const txStatus = (state = {}, action) => {
   switch (action.type){
@@ -92,8 +92,10 @@ const txStatus = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
-const rootReducer = combineReducers({form, tokens, account, contract, web3, txStatus, appInitialized});
+const rootReducer = combineReducers({
+  form, tokens, wallet, contract, web3, txStatus, appInitialized
+});
 
 export default rootReducer;

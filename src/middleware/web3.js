@@ -10,6 +10,6 @@ const web3Middleware = store => next => action => {
     default:
       next(action);
   }
-}
+};
 
 export default web3Middleware;

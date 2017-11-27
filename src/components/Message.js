@@ -3,26 +3,51 @@ import PropTypes from 'prop-types';
 import FaCheckCircle from 'react-icons/lib/fa/check-circle';
 import FaExclamationCircle from 'react-icons/lib/fa/exclamation-circle';
 import FaClockO from 'react-icons/lib/fa/clock-o';
+import injectSheet from 'react-jss';
 
 const Message = (props) => {
-  if (props.type === 'success'){
+  const {successColor, errorColor, message, alignIcon} = props.classes;
+  const {text, type} = props;
+  if (type === 'success') {
     return (
-      <div className="success-color Message"><FaCheckCircle/>{props.text}</div>
+      <div className={`${successColor} ${message}`}>
+        <FaCheckCircle className={alignIcon}/>
+        {text}
+      </div>
     )
-  }else if (props.type === 'error'){
+  } else if (type === 'error') {
     return (
-      <div className="error-color Message"><FaExclamationCircle/>{props.text}</div>
+      <div className={`${errorColor} ${message}`}>
+        <FaExclamationCircle className={alignIcon}/>
+        {text}
+      </div>
     )
-  }else if (props.type === 'pending'){
+  } else if (type === 'pending') {
     return (
-      <div className="Message"><FaClockO/>{props.text}</div>
+      <div className={message}>
+        <FaClockO className={alignIcon}/>
+        {text}
+      </div>
     )
   }
-}
+};
 
 Message.propTypes = {
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };
 
-export default Message;
+const styles = theme => ({
+  message: {
+    textTransform: 'uppercase',
+    paddingTop: '10px'
+  },
+  successColor: theme.successColor,
+  errorColor: theme.errorColor,
+  alignIcon: {
+    marginBottom: '3.1px',
+    marginRight: '3px',
+  }
+});
+
+export default injectSheet(styles)(Message);

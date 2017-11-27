@@ -11,6 +11,6 @@ const contractMiddleware = store => next => action => {
     default:
       next(action);
   }
-}
+};
 
 export default contractMiddleware;

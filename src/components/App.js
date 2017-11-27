@@ -3,61 +3,71 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 import {appInitializedSelector} from '../selectors/selectors';
+import injectSheet, {ThemeProvider} from 'react-jss';
+import theme from '../theme';
 
-import '../styles/App.css';
-
+import Loader from './Loader';
 import Header from './Header';
-import Account from './Account';
-import Token from './Token';
-import Loading from 'react-loading-animation';
+import Body from './Body';
 import Aux from 'react-aux';
 
 
 class App extends React.Component {
-
   constructor(props) {
   	super();
   }
-
   componentWillMount() {
     window.addEventListener('load', this.props.getWeb3);
   }
 
   render() {
-
+    const {app} = this.props.classes;
+    const {tokens, appInitialized} = this.props;
+    const {props} = this;
     const headerProps = {
-      title: this.props.tokens.name,
-      subtitle: "Make Sens of the World"
+      title: tokens.name,
+      subTitle: "Make Sens of the World"
     };
 
     return (
-      <div className="App">
-        {
-          !this.props.appInitialized ?
-            <div className="Loading"><Loading/></div>
-          :
-          <Aux>
-            <Header {...this.props} {...headerProps}/>
-            <div className="App-body">
-              <Token {...this.props}/>
-              <Account {...this.props}/>
-            </div>
-          </Aux>
-        }
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className={app}>
+          {
+            !appInitialized ?
+              <Loader/>
+            :
+            <Aux>
+              <Header {...props} {...headerProps}/>
+              <Body {...props}/>
+            </Aux>
+          }
+        </div>
+      </ThemeProvider>
     );
   }
-}
+};
+
+const styles = {
+  app: {
+    color: '#333',
+    background: '#f2f2f2',
+    fontSize: '.95em',
+    fontWeight: '300',
+    fontFamily: '"Montserrat", sans-serif',
+    height: '100%'
+  }
+};
 
 const mapStateToProps = (state) => {
-  return{
-    account: state.account, /*wallet address*/
-    tokens: state.tokens, /*token info (rate, totalsupply, maxsupply)*/
-    form: state.form, /*redux form*/
-    contract: state.contract, /*contract instance*/
-    web3: state.web3, /*web3 object*/
-    txStatus: state.txStatus, /*displays transaction success, fail, pending*/
-    appInitialized: appInitializedSelector(state) /*is app initialized, used for loader*/
+  const {wallet, tokens, form, contract, web3, txStatus, appInitialized} = state;
+  return {
+    wallet, /*wallet id and balance*/
+    tokens, /*token info (rate, totalsupply, maxsupply, symbol, name)*/
+    form, /*redux form*/
+    contract, /*contract instance*/
+    web3, /*web3 object*/
+    txStatus, /*transaction success, fail, pending, msg*/
+    appInitialized: appInitializedSelector(state) /*is app initialized*/
   }
 }
 
@@ -65,4 +75,6 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actionCreators, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default injectSheet(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);

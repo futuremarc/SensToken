@@ -17,14 +17,14 @@ button.ui.button:hover {
   background-color: #080BE2 !important;
 }
 
+div.ui.input {
+  width:50% !important;
+}
+
 div.ui.input > ::placeholder {
   text-align: right !important;
 }
 
 div.ui.error.input > input {
   border-color: #fc2d3a !important;
-}
-
-div.ui.input {
-  width:50% !important;
 }
