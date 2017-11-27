@@ -45,7 +45,7 @@ const styles = theme => ({
   successColor: theme.successColor,
   errorColor: theme.errorColor,
   alignIcon: {
-    marginBottom: '3.1px',
+    marginBottom: '3.4px',
     marginRight: '3px',
   }
 });

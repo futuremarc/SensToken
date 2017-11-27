@@ -60,13 +60,10 @@ const styles = theme => ({
     lineHeight: '1.5em',
     width: '60%',
     height: '450px',
-    flexDirection: 'column',
-    alignItems: 'start',
     marginRight: '15px',
     display: 'inline-block',
     wordWrap: 'break-word',
     verticalAlign: 'top',
-    overflow: 'hidden',
     '@media only screen and (max-width: 915px)': {
       width:'100%',
       minWidth: '505px'

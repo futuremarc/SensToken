@@ -7,14 +7,14 @@ import injectSheet from 'react-jss';
 
 const Wallet = (props) => {
   const {id} = props.wallet;
-  const {errorColor} = props.classes;
+  const {errorColor, walletItem} = props.classes;
   return (
-    <Aux>
+    <div className={walletItem}>
       <div>Your MetaMask Wallet</div>
       {
         id  ?
         id : <div className={errorColor}>Please install MetaMask to sign in.</div> }
-    </Aux>
+    </div>
   )
 };
 
@@ -22,7 +22,6 @@ const Balance = ({tokens, wallet, classes}) => {
   const {brandColor, mediumFont} = classes;
   return (
     <Aux>
-      <br/>
       <div>Your Token Balance</div>
       <div className=
         {`${brandColor} ${mediumFont}`}>
@@ -57,16 +56,15 @@ const txStatus = ({txStatus, tokens, classes}) => {
   )
 };
 
-
 const Account = (props) => {
-  const {wallet, card} = props.classes;
+  const {wallet, walletItem, card} = props.classes;
   return (
     <div className={`${wallet} ${card}`}>
       <Wallet {...props}/>
-      <br/>
-      <br/>
       <Balance {...props}/>
-      {txStatus(props)}
+      <div className={walletItem}>
+        {txStatus(props)}
+      </div>
     </div>
   )
 };
@@ -74,6 +72,9 @@ const Account = (props) => {
 const styles = theme => ({
   amount: {
     marginTop:'7px'
+  },
+  walletItem:{
+    paddingBottom:'37px'
   },
   wallet: {
     width: '35%',
