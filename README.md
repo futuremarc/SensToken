@@ -36,8 +36,6 @@ Migrates the contract to rinkeby and deploys to gh-pages.
 Tests the solidity contracts and react app.
 
 
-
-
 ## TO DO
 * Add tip to check metamask popup.
 * Add tip to add contract address to metamask afterwords.
