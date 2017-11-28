@@ -1,12 +1,4 @@
 const theme = {
-  app: {
-    color: '#333',
-    background: '#f2f2f2',
-    fontSize: '.95em',
-    fontWeight: '300',
-    fontFamily: '"Montserrat", sans-serif',
-    height: '100%'
-  },
   card: {
     border: '#e4e4e4 1px solid',
     backgroundColor: '#fff',
