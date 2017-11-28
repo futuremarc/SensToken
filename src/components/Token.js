@@ -66,7 +66,7 @@ const styles = theme => ({
     verticalAlign: 'top',
     '@media only screen and (max-width: 915px)': {
       width: '100%',
-      minWidth: '505px'
+      minWidth: '500px'
     }
   },
   cardItem:theme.cardItem,

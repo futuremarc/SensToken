@@ -43,7 +43,7 @@ Header.propTypes = {
 const styles = theme => ({
   header: {
     height: '140px',
-    overflow: 'hidden'
+    minWidth: '600px'
   },
   title: {
     display: 'inline-block',

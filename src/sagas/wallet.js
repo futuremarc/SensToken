@@ -13,7 +13,7 @@ const getId = (web3, contract) => {
   else return false;
 };
 
-function* callGetAccount() {
+function* callGetWallet() {
   const web3 = yield select(web3Selector);
   const contract = yield select(contractSelector);
   const id = yield call(getId, web3, contract);
@@ -28,11 +28,11 @@ function* callGetAccount() {
   }
 };
 
-function* getAccountSaga() {
-  yield takeEvery(GET_WALLET, callGetAccount);
+function* getWalletSaga() {
+  yield takeEvery(GET_WALLET, callGetWallet);
 };
 
 const web3Selector = (state) => state.web3;
 const contractSelector = (state) => state.contract;
 
-export {getAccountSaga};
+export {getWalletSaga};
