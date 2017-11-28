@@ -42,7 +42,8 @@ Header.propTypes = {
 
 const styles = theme => ({
   header: {
-    height: '140px'
+    height: '140px',
+    overflow: 'hidden'
   },
   title: {
     display: 'inline-block',
@@ -50,15 +51,18 @@ const styles = theme => ({
     padding: '35px 5px 10px 45px'
   },
   subTitle: {
-    display: 'inline-block',
+    display: 'inline',
     fontSize: '1.5em',
     fontWeight: '300',
     color: '#aeaeae'
   },
-  login:{
+  login: {
     position: 'absolute',
     right: '40px',
-    top: '43px'
+    top: '43px',
+    '@media only screen and (max-width: 915px)': {
+      display: 'none !important' /*override sematic-ui*/
+    }
   },
   brandColor: theme.brandColor
 });

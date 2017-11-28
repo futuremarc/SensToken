@@ -6,7 +6,7 @@ import FaClockO from 'react-icons/lib/fa/clock-o';
 import injectSheet from 'react-jss';
 
 const Message = (props) => {
-  const {successColor, errorColor, message, alignIcon} = props.classes;
+  const {successColor, errorColor, warningColor, message, alignIcon} = props.classes;
   const {text, type} = props;
   if (type === 'success') {
     return (
@@ -24,7 +24,7 @@ const Message = (props) => {
     )
   } else if (type === 'pending') {
     return (
-      <div className={message}>
+      <div className={`${warningColor} ${message}`}>
         <FaClockO className={alignIcon}/>
         {text}
       </div>
@@ -44,6 +44,7 @@ const styles = theme => ({
   },
   successColor: theme.successColor,
   errorColor: theme.errorColor,
+  warningColor: theme.warningColor,
   alignIcon: {
     marginBottom: '3.2px',
     marginRight: '3.23px',

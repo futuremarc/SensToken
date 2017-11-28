@@ -79,20 +79,20 @@ const txStatus = (state = {}, action) => {
   switch (action.type){
     case BUY_TOKENS_DONE:
       return {
-        isSuccess: true,
+        success: true,
         pending: false,
         amount: action.payload.amount,
         msg: 'transaction succeeded!'
       };
     case BUY_TOKENS_FAILED:
     return {
-      isSuccess: false,
+      success: false,
       pending: false,
       msg: 'transaction failed'
     };
     case BUY_TOKENS:
     return {
-      isSuccess: null,
+      success: null,
       pending: true,
       msg: 'transaction pending'
     };

@@ -6,30 +6,30 @@ import injectSheet from 'react-jss';
 
 
 const Rate = (props) => {
-  const {tokenItem, mediumFont} = props.classes;
+  const {cardItem, mediumFont} = props.classes;
   const {tokens} = props;
   return (
-    <div className={tokenItem}>
+    <div className={cardItem}>
       <div>Tokens per 1 ETH</div> <div className={mediumFont}>{numberWithCommas(tokens.rate)} {tokens.symbol}</div>
     </div>
   )
 }
 
 const MaxSupply = (props) => {
-  const {tokenItem, mediumFont} = props.classes;
+  const {cardItem, mediumFont} = props.classes;
   const {tokens} = props;
   return (
-    <div className={tokenItem}>
+    <div className={cardItem}>
       <div>Max amount of tokens</div> <div className={mediumFont}>{numberWithCommas(tokens.maxSupply)}</div>
     </div>
   )
 }
 
 const TotalSupply = (props) => {
-  const {tokenItem, mediumFont} = props.classes;
+  const {cardItem, mediumFont} = props.classes;
   const {tokens} = props;
   return (
-    <div className={tokenItem}>
+    <div className={cardItem}>
       <div>Available amount of tokens</div> <div className={mediumFont}>{numberWithCommas(tokens.maxSupply - tokens.totalSupply)}</div>
     </div>
   )
@@ -69,9 +69,7 @@ const styles = theme => ({
       minWidth: '505px'
     }
   },
-  tokenItem: {
-    paddingBottom: '30px'
-  },
+  cardItem:theme.cardItem,
   mediumFont: theme.mediumFont,
   card: theme.card
 });

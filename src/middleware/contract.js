@@ -1,4 +1,4 @@
-import {GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
+import {GET_CONTRACT_DONE} from '../constants';
 import {getWallet, getTokens} from '../actions/actionCreators';
 
 const contractMiddleware = store => next => action => {

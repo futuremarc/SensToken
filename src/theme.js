@@ -13,8 +13,8 @@ const theme = {
     borderRadius: '4px',
     padding: '40px 30px 40px 30px'
   },
-  errorColor: {
-    color: '#fc2d3a'
+  cardItem:{
+    height: '80px'
   },
   mediumFont: {
     fontSize: '2em',
@@ -29,7 +29,13 @@ const theme = {
   },
   successColor:{
     color: '#1fca23'
-  }
+  },
+  errorColor: {
+    color: '#fc2d3a'
+  },
+  warningColor: {
+    color: '#ff9400'
+  },
 };
 
 export default theme;

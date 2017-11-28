@@ -6,10 +6,10 @@ const getRate = (web3, contract) => {
   return contract.RATE().then(result => result.toNumber()); /*convert from bignumber instead?*/
 };
 const getTotalSupply= (web3, contract) => {
-  return contract.totalSupply().then(result => web3.utils.fromWei(BNtoString(result), "ether")).catch((error) => error.message);
+  return contract.totalSupply().then(result => web3.utils.fromWei(BNtoString(result), 'ether')).catch((error) => error.message);
 };
 const getMaxSupply = (web3, contract) => {
-  return contract.MAX_TOKENS().then(result => web3.utils.fromWei(BNtoString(result), "ether")).catch((error) => error.message);
+  return contract.MAX_TOKENS().then(result => web3.utils.fromWei(BNtoString(result), 'ether')).catch((error) => error.message);
 };
 const getName = (contract) => {
   return contract.NAME().then(result => result).catch((error) => error.message);
@@ -24,11 +24,11 @@ const getTagline = (contract) => {
 
 const buyTokens = (web3, contract, id, rate, amount) => {
   const value = amount/rate;
-  return contract.createTokens({value:web3.utils.toWei(String(value), "ether"), from:id})
+  return contract.createTokens({value:web3.utils.toWei(String(value), 'ether'), from:id})
   .then((result)=> {
     for (var i = 0; i < result.logs.length; i++) {
       var log = result.logs[i];
-      if (log.event === "CreatedTokens") {
+      if (log.event === 'CreatedTokens') {
         return log;
       }
     }
@@ -60,8 +60,8 @@ function* callBuyTokens({payload}) {
     const totalSupply = result.args.totalSupply;
     const balance = result.args.balance;
     const payload = {
-      totalSupply : web3.utils.fromWei(BNtoString(totalSupply), "ether"),
-      balance : web3.utils.fromWei(BNtoString(balance), "ether"),
+      totalSupply : web3.utils.fromWei(BNtoString(totalSupply), 'ether'),
+      balance : web3.utils.fromWei(BNtoString(balance), 'ether'),
       amount: amount
     };
     yield put({ type: BUY_TOKENS_DONE, payload });
@@ -79,10 +79,10 @@ function* buyTokensSaga() {
   yield takeEvery(BUY_TOKENS, callBuyTokens);
 };
 
-export const web3Selector = (state) => state.web3;
-export const contractSelector = (state) => state.contract;
-export const tokensSelector = (state) => state.tokens;
-export const walletSelector = (state) => state.wallet;
+const web3Selector = (state) => state.web3;
+const contractSelector = (state) => state.contract;
+const tokensSelector = (state) => state.tokens;
+const walletSelector = (state) => state.wallet;
 
 export {getTokensSaga};
 export {buyTokensSaga};

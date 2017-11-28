@@ -4,7 +4,7 @@ import {GET_WALLET, GET_WALLET_DONE, GET_WALLET_FAILED} from '../constants';
 
 
 const getBalance = (web3, contract, id) => {
-  return contract.balanceOf(id).then(result => web3.utils.fromWei(BNtoString(result), "ether")).catch((error) => error.message);
+  return contract.balanceOf(id).then(result => web3.utils.fromWei(BNtoString(result), 'ether')).catch((error) => error.message);
 };
 
 const getId = (web3, contract) => {

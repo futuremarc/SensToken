@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import injectSheet, {withTheme} from 'react-jss';
 import store from './store';
 import registerServiceWorker, {unregister as unregisterServiceWorker} from './registerServiceWorker';
 
@@ -16,6 +15,6 @@ process.env.NODE_ENV !== 'production' ?
 ReactDOM.render(
   <Provider store={store}>
     <App/>
-  </Provider>, 
+  </Provider>,
   document.getElementById('root')
 );

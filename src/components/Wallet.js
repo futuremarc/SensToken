@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
 import Message from './Message';
@@ -10,12 +9,12 @@ import {DEPLOYED_NETWORK_NAME} from '../constants';
 const Wallet = (props) => {
   const {contract} = props;
   const {id} = props.wallet;
-  const {walletItem, errorColor} = props.classes;
+  const {errorColor} = props.classes;
   return (
-    <div className={walletItem}>
+    <Aux>
       <div>Your MetaMask Wallet</div>
       {getWalletStatus(id, contract, errorColor)}
-    </div>
+    </Aux>
   )
 };
 
@@ -56,34 +55,40 @@ const getTxStatus = ({txStatus, tokens, classes}) => {
   const {amount} = classes;
   if (!txStatus.msg) return (<div></div>);
   let type;
-  if (txStatus.isSuccess === true) type = 'success';
+  if (txStatus.success === true) type = 'success';
   else if (txStatus.pending === true) type = 'pending';
-  else if (txStatus.isSuccess === false) type = 'error';
+  else if (txStatus.success === false) type = 'error';
   const messageProps = {
     text: txStatus.msg,
     type: type
   };
+  let notice;
+  if (txStatus.success === true){
+    notice = `You recently purchased ${numberWithCommas(txStatus.amount)} ${tokens.symbol}.`;
+  }
+  else if (txStatus.pending === true){
+    notice = 'This may take up to a minute...';
+  }
   return (
     <Aux>
       <Message {...messageProps}/>
-      {
-        txStatus.isSuccess &&
-        <div className=
-          {amount}>
-          You recently purchased {numberWithCommas(txStatus.amount)} {tokens.symbol}.
-        </div>
-      }
+      <div className={amount}>
+        {notice}
+      </div>
     </Aux>
   )
 };
 
+
 const Account = (props) => {
-  const {wallet, walletItem, card} = props.classes;
+  const {wallet, cardItem, card} = props.classes;
   return (
     <div className={`${wallet} ${card}`}>
-      <Wallet {...props}/>
-      <Balance {...props}/>
-      <div className={walletItem}>
+      <div className={cardItem}>
+        <Wallet {...props}/>
+      </div>
+      <div className={cardItem}>
+        <Balance {...props}/>
         {getTxStatus(props)}
       </div>
     </div>
@@ -93,9 +98,6 @@ const Account = (props) => {
 const styles = theme => ({
   amount: {
     marginTop:'7px'
-  },
-  walletItem:{
-    paddingBottom:'37px'
   },
   wallet: {
     width: '35%',
@@ -109,6 +111,7 @@ const styles = theme => ({
     }
   },
   card: theme.card,
+  cardItem: theme.cardItem,
   errorColor: theme.errorColor,
   brandColor: theme.brandColor,
   mediumFont: theme.mediumFont

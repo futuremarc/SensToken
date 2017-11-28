@@ -17,7 +17,10 @@ const styles = {
     bottom: '0',
     left: '0',
     right: '0',
-    width: '90%'
+    width: '90%',
+    '@media only screen and (max-width: 915px)': {
+      width:'100%'
+    }
   }
 };
 

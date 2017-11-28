@@ -30,7 +30,7 @@ const defaultState = {
   web3: {},
   form: '',
   txStatus: {
-    isSuccess: null,
+    success: null,
     pending: false,
     msg : ''
   },
