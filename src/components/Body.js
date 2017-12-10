@@ -12,15 +12,8 @@ const Body = (props) => (
 
 const styles = {
   body: {
-    margin: '0 auto',
-    top: '0',
-    bottom: '0',
-    left: '0',
-    right: '0',
-    width: '90%',
-    '@media only screen and (max-width: 915px)': {
-      width:'100%'
-    }
+    marginLeft: '5%',
+    marginRight: '5%'
   }
 };
 

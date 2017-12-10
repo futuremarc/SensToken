@@ -1,5 +1,5 @@
 import {GET_WEB3, GET_CONTRACT} from '../constants';
-import {GET_TOKENS, BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
+import {GET_TOKEN, BUY_TOKEN, BUY_TOKEN_DONE, BUY_TOKEN_FAILED} from '../constants';
 import {GET_WALLET} from '../constants';
 
 
@@ -9,15 +9,15 @@ export const getWallet = () => {
   }
 };
 
-export const getTokens = () => {
+export const getToken = () => {
   return {
-    type: GET_TOKENS
+    type: GET_TOKEN
   }
 };
 
-export const buyTokens = (amount, resolve, reject) => {
+export const buyToken = (amount, resolve, reject) => {
   return {
-    type: BUY_TOKENS,
+    type: BUY_TOKEN,
     payload: {
       amount,
       resolve,
@@ -40,12 +40,12 @@ export const getWeb3 = () => {
 
 export const setBuySuccess = () => {
   return {
-    type: BUY_TOKENS_DONE
+    type: BUY_TOKEN_DONE
   }
 };
 
 export const setBuyFail = () => {
   return {
-    type: BUY_TOKENS_FAILED
+    type: BUY_TOKEN_FAILED
   }
 };

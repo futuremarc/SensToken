@@ -1,9 +1,10 @@
 import {takeEvery, call, put, select} from 'redux-saga/effects';
 import BNtoString from 'bignumber-to-string';
-import {GET_TOKENS, GET_TOKENS_DONE, BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
+import {GET_TOKEN, GET_TOKEN_DONE} from '../constants';
+import {BUY_TOKEN, BUY_TOKEN_DONE, BUY_TOKEN_FAILED} from '../constants';
 
 const getRate = (web3, contract) => {
-  return contract.RATE().then(result => result.toNumber()); /*convert from bignumber instead?*/
+  return contract.RATE().then(result => result.toNumber());
 };
 const getTotalSupply= (web3, contract) => {
   return contract.totalSupply().then(result => web3.utils.fromWei(BNtoString(result), 'ether')).catch((error) => error.message);
@@ -22,7 +23,7 @@ const getTagline = (contract) => {
 };
 
 
-const buyTokens = (web3, contract, id, rate, amount) => {
+const buyToken = (web3, contract, id, rate, amount) => {
   const value = amount/rate;
   return contract.createTokens({value:web3.utils.toWei(String(value), 'ether'), from:id})
   .then((result)=> {
@@ -35,7 +36,7 @@ const buyTokens = (web3, contract, id, rate, amount) => {
   }).catch((error) => error.message);
 };
 
-function* callGetTokens() {
+function* callGetToken() {
   const web3 = yield select(web3Selector);
   const contract = yield select(contractSelector);
   const rate = yield call(getRate, web3, contract);
@@ -44,17 +45,17 @@ function* callGetTokens() {
   const name = yield call(getName, contract);
   const symbol = yield call(getSymbol, contract);
   const tagline = yield call(getTagline, contract);
-  const tokens = {rate, totalSupply, maxSupply, name, symbol, tagline};
-  yield put({ type: GET_TOKENS_DONE, payload : tokens });
+  const token = {rate, totalSupply, maxSupply, name, symbol, tagline};
+  yield put({ type: GET_TOKEN_DONE, payload : token });
 };
 
-function* callBuyTokens({payload}) {
+function* callBuyToken({payload}) {
   const {amount, resolve, reject} = payload;
   const web3 = yield select(web3Selector);
   const contract = yield select(contractSelector);
-  const tokens = yield select(tokensSelector);
+  const token = yield select(tokenSelector);
   const wallet = yield select(walletSelector);
-  const result = yield call(buyTokens, web3, contract, wallet.id, tokens.rate, amount);
+  const result = yield call(buyToken, web3, contract, wallet.id, token.rate, amount);
   if (result.transactionHash) {
     yield call(resolve);
     const totalSupply = result.args.totalSupply;
@@ -64,25 +65,26 @@ function* callBuyTokens({payload}) {
       balance : web3.utils.fromWei(BNtoString(balance), 'ether'),
       amount: amount
     };
-    yield put({ type: BUY_TOKENS_DONE, payload });
-  }else {
+    yield put({ type: BUY_TOKEN_DONE, payload });
+  }
+  else {
     yield call(reject);
-    yield put({ type: BUY_TOKENS_FAILED, payload }); /*contains error object*/
+    yield put({ type: BUY_TOKEN_FAILED, payload }); /*contains error object*/
   }
 };
 
-function* getTokensSaga() {
-  yield takeEvery(GET_TOKENS, callGetTokens);
+function* getTokenSaga() {
+  yield takeEvery(GET_TOKEN, callGetToken);
 };
 
-function* buyTokensSaga() {
-  yield takeEvery(BUY_TOKENS, callBuyTokens);
+function* buyTokenSaga() {
+  yield takeEvery(BUY_TOKEN, callBuyToken);
 };
 
 const web3Selector = (state) => state.web3;
 const contractSelector = (state) => state.contract;
-const tokensSelector = (state) => state.tokens;
+const tokenSelector = (state) => state.token;
 const walletSelector = (state) => state.wallet;
 
-export {getTokensSaga};
-export {buyTokensSaga};
+export {getTokenSaga};
+export {buyTokenSaga};

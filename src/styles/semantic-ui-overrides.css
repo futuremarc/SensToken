@@ -18,7 +18,7 @@ button.ui.button:hover {
 }
 
 div.ui.input {
-  width:50% !important;
+  width: 50% !important;
 }
 
 div.ui.input > ::placeholder {

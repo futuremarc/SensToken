@@ -1,13 +1,14 @@
 # SensToken
-A token sale dApp for SensTokens built with react, redux, and truffle.
+A token sale dApp for SensToken built with react, redux, and truffle.
 
 [See it here](https://futuremarc.github.io/SensToken/)
 
-## Install
+## Getting Started
 
 1. Make sure you have truffle installed globally `npm install -g truffle`.
 2. `npm install` or `yarn install`
 3. Run in `truffle develop` on port `9545`.
+4. Run `npm run dev`.
 
 ## Available Scripts
 

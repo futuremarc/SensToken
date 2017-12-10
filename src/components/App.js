@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
@@ -11,8 +11,9 @@ import Header from './Header';
 import Body from './Body';
 import Aux from 'react-aux';
 
+import {TOKEN_TAGLINE} from '../constants';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
   	super();
   }
@@ -22,11 +23,11 @@ class App extends React.Component {
 
   render() {
     const {app} = this.props.classes;
-    const {tokens, appInitialized} = this.props;
+    const {token, appInitialized} = this.props;
     const {props} = this;
     const headerProps = {
-      title: tokens.name,
-      subTitle: tokens.tagline
+      title: token.name,
+      subTitle: token.tagline || TOKEN_TAGLINE
     };
     return (
       <ThemeProvider theme={theme}>
@@ -58,10 +59,10 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const {wallet, tokens, form, contract, web3, txStatus} = state;
+  const {wallet, token, form, contract, web3, txStatus} = state;
   return {
     wallet, /*wallet id, balance, network*/
-    tokens, /*token info (rate, totalsupply, maxsupply, symbol, name)*/
+    token, /*token info (rate, totalsupply, maxsupply, symbol, name)*/
     form, /*redux form*/
     contract, /*contract instance*/
     web3, /*web3 object*/

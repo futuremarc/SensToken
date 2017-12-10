@@ -3,7 +3,7 @@ import {numberWithCommas} from '../helpers';
 import Aux from 'react-aux';
 import Message from './Message';
 import injectSheet from 'react-jss';
-import {DEPLOYED_NETWORK_NAME} from '../constants';
+import {NETWORK_NAME_DEPLOYED} from '../constants';
 
 
 const Wallet = (props) => {
@@ -18,14 +18,14 @@ const Wallet = (props) => {
   )
 };
 
-const Balance = ({tokens, wallet, classes}) => {
+const Balance = ({token, wallet, classes}) => {
   const {brandColor, mediumFont} = classes;
   return (
     <Aux>
       <div>Your Token Balance</div>
       <div className=
         {`${brandColor} ${mediumFont}`}>
-        {numberWithCommas(wallet.balance)} {tokens.symbol}
+        {numberWithCommas(wallet.balance)} {token.symbol}
       </div>
     </Aux>
   )
@@ -36,12 +36,14 @@ const getWalletStatus = (id, contract, errorColor) => {
     return(
       <div
         className={errorColor}>
-        {`Please use the ${DEPLOYED_NETWORK_NAME}.`}
+        {`Please use the ${NETWORK_NAME_DEPLOYED} network.`}
       </div>
     )
-  } else if (id){    /*all good*/
+  }
+  else if (id){    /*all good, display id*/
     return id
-  } else {           /*no metamask*/
+  }
+  else {           /*no metamask*/
     return(
       <div
         className={errorColor}>
@@ -51,10 +53,10 @@ const getWalletStatus = (id, contract, errorColor) => {
   }
 };
 
-const getTxStatus = ({txStatus, tokens, classes}) => {
-  const {amount} = classes;
+const getTxStatus = ({txStatus, token, classes}) => {
+  const {notice} = classes;
+  let type, noticeText;
   if (!txStatus.msg) return (<div></div>);
-  let type;
   if (txStatus.success === true) type = 'success';
   else if (txStatus.pending === true) type = 'pending';
   else if (txStatus.success === false) type = 'error';
@@ -62,18 +64,17 @@ const getTxStatus = ({txStatus, tokens, classes}) => {
     text: txStatus.msg,
     type: type
   };
-  let notice;
   if (txStatus.success === true){
-    notice = `You recently purchased ${numberWithCommas(txStatus.amount)} ${tokens.symbol}.`;
+    noticeText = `You recently purchased ${numberWithCommas(txStatus.amount)} ${token.symbol}.`;
   }
   else if (txStatus.pending === true){
-    notice = 'This may take up to a minute...';
+    noticeText = 'This may take up to a minute...';
   }
   return (
     <Aux>
       <Message {...messageProps}/>
-      <div className={amount}>
-        {notice}
+      <div className={notice}>
+        {noticeText}
       </div>
     </Aux>
   )
@@ -96,7 +97,7 @@ const Account = (props) => {
 };
 
 const styles = theme => ({
-  amount: {
+  notice: {
     marginTop:'7px'
   },
   wallet: {

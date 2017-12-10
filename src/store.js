@@ -14,7 +14,7 @@ const composeSetup = isDev &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const defaultState = {
-  tokens: {
+  token: {
     rate: 0,
     totalSupply: 0,
     maxSupply: 0,
@@ -40,7 +40,8 @@ const defaultState = {
 let store;
 if (isDev){
   store = createStore(rootReducer, defaultState, composeSetup(applyMiddleware(sagaMiddleware, web3Middleware, contractMiddleware, logger)));
-}else{
+}
+else{
   store = createStore(rootReducer, defaultState, applyMiddleware(sagaMiddleware, web3Middleware, contractMiddleware));
 }
 sagaMiddleware.run(rootSagas);

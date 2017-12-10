@@ -11,8 +11,8 @@ const styles = {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    width:'50px',
-    height:'50px',
+    width: '50px',
+    height: '50px',
     transform: 'translate(-50%, -50%)'
   }
 };

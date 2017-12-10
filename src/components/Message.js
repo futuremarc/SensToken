@@ -15,14 +15,16 @@ const Message = (props) => {
         {text}
       </div>
     )
-  } else if (type === 'error') {
+  }
+  else if (type === 'error') {
     return (
       <div className={`${errorColor} ${message}`}>
         <FaExclamationCircle className={alignIcon}/>
         {text}
       </div>
     )
-  } else if (type === 'pending') {
+  }
+  else if (type === 'pending') {
     return (
       <div className={`${warningColor} ${message}`}>
         <FaClockO className={alignIcon}/>

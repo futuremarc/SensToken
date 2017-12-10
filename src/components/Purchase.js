@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Input, Button} from 'semantic-ui-react';
 import {Field, reduxForm, SubmissionError} from 'redux-form';
-import {buyTokens} from '../actions/actionCreators';
+import {buyToken} from '../actions/actionCreators';
 import Aux from 'react-aux';
 import Message from './Message';
 import injectSheet from 'react-jss';
 
-class Purchase extends React.Component{
+class Purchase extends Component{
 
   constructor(props) {
   	super();
@@ -18,15 +18,16 @@ class Purchase extends React.Component{
     const {wallet, txStatus} = this.props;
     if (!wallet.id || error || txStatus.pending === true){
       return true;
-    } else {
+    }
+    else {
       return false;
     }
   }
 
   purchaseInput({input, meta: {error}, ...custom}){
-    const {classes, tokens, txStatus} = this.props;
-    const {label} = classes;
-    const {symbol} = tokens;
+    const {classes, token, txStatus, wallet} = this.props;
+    const {label, disabled} = classes;
+    const {symbol} = token;
     const {pending} = txStatus;
     const hasError = (error !== undefined);
     const messageProps = {
@@ -35,7 +36,9 @@ class Purchase extends React.Component{
     };
     return (
       <Aux>
-        <div className={label}>Enter amount to purchase</div>
+        <div className={!wallet.id ? `${label} ${disabled}` : label}>
+          Enter amount to purchase
+        </div>
         <Input
           size="big"
           error={hasError}
@@ -54,20 +57,20 @@ class Purchase extends React.Component{
   }
 
   submit({amount}, dispatch){
-    if (!amount) return /*temp: dont throw a validate error just do nothing*/
+    if (!amount) return /*temp: if empty dont throw a validate error just do nothing*/
     const {reset} = this.props;
     return new Promise((resolve, reject) => {
-      dispatch(buyTokens(amount,resolve,reject))
+      dispatch(buyToken(amount,resolve,reject))
     })
     .then(reset).catch((error)=> {throw new SubmissionError(error)});
   }
 
   render() {
     const {handleSubmit, classes, wallet} = this.props;
-    const {purchase} = classes;
+    const {purchaseInput} = classes;
     const {id} = wallet;
     return (
-      <form className={purchase} onSubmit={handleSubmit(this.submit)}>
+      <form className={purchaseInput} onSubmit={handleSubmit(this.submit)}>
         <Field
           name="amount"
           disabled={id ? false : true}
@@ -79,7 +82,7 @@ class Purchase extends React.Component{
 
 const validate = ({amount}, props) => {
   let errors = {}
-  if (amount === undefined) return /*temp: dont throw a validate error just do nothing*/
+  if (amount === undefined) return /*temp: if empty dont throw a validate error just do nothing*/
   if (isNaN(Number(amount))) {
     errors.amount = 'Please enter a number';
   }
@@ -91,13 +94,14 @@ const purchaseForm = reduxForm({
   validate
 })(Purchase);
 
-const styles = {
-  purchase: {
+const styles = theme => ({
+  purchaseInput: {
     paddingTop:'40px'
   },
   label: {
     marginBottom: '7px'
-  }
-}
+  },
+  disabled: theme.disabled
+});
 
 export default injectSheet(styles)(purchaseForm)

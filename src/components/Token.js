@@ -7,30 +7,39 @@ import injectSheet from 'react-jss';
 
 const Rate = (props) => {
   const {cardItem, mediumFont} = props.classes;
-  const {tokens} = props;
+  const {token} = props;
   return (
     <div className={cardItem}>
-      <div>Tokens per 1 ETH</div> <div className={mediumFont}>{numberWithCommas(tokens.rate)} {tokens.symbol}</div>
+      <div>Tokens per 1 ETH</div>
+      <div className={mediumFont}>
+        {numberWithCommas(token.rate)} {token.symbol}
+      </div>
     </div>
   )
 }
 
 const MaxSupply = (props) => {
   const {cardItem, mediumFont} = props.classes;
-  const {tokens} = props;
+  const {token} = props;
   return (
     <div className={cardItem}>
-      <div>Max amount of tokens</div> <div className={mediumFont}>{numberWithCommas(tokens.maxSupply)}</div>
+      <div>Max amount of tokens</div>
+      <div className={mediumFont}>
+        {numberWithCommas(token.maxSupply)}
+      </div>
     </div>
   )
 }
 
 const TotalSupply = (props) => {
   const {cardItem, mediumFont} = props.classes;
-  const {tokens} = props;
+  const {token} = props;
   return (
     <div className={cardItem}>
-      <div>Available amount of tokens</div> <div className={mediumFont}>{numberWithCommas(tokens.maxSupply - tokens.totalSupply)}</div>
+      <div>Available amount of tokens</div>
+      <div className={mediumFont}>
+        {numberWithCommas(token.maxSupply - token.totalSupply)}
+      </div>
     </div>
   )
 }
@@ -69,7 +78,7 @@ const styles = theme => ({
       minWidth: '500px'
     }
   },
-  cardItem:theme.cardItem,
+  cardItem: theme.cardItem,
   mediumFont: theme.mediumFont,
   card: theme.card
 });

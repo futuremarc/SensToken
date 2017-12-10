@@ -2,72 +2,68 @@ import {combineReducers} from 'redux';
 import {reducer as form} from 'redux-form';
 
 import {INITIALIZE_APP, GET_WEB3_DONE} from '../constants';
-import {GET_WALLET_DONE, GET_WALLET_FAILED} from '../constants';
-import {GET_TOKENS_DONE} from '../constants';
+import {GET_WALLET_DONE} from '../constants';
+import {GET_TOKEN_DONE} from '../constants';
 import {GET_CONTRACT_DONE, GET_CONTRACT_FAILED} from '../constants';
-import {BUY_TOKENS, BUY_TOKENS_DONE, BUY_TOKENS_FAILED} from '../constants';
+import {BUY_TOKEN, BUY_TOKEN_DONE, BUY_TOKEN_FAILED} from '../constants';
 
-const wallet = (state = {}, action) => {
-  switch (action.type){
+
+const token = (state = {}, {type, payload}) => {
+  switch (type){
+    case GET_TOKEN_DONE:
+      return {
+        ...state,
+        ...payload /*totalsupply maxsupply rate symbol name tagline*/
+      };
+    case BUY_TOKEN_DONE:
+      return {
+        ...state,
+        ...payload /*totalsupply*/
+      };
+    default:
+      return state;
+  }
+};
+
+const wallet = (state = {}, {type, payload}) => {
+  switch (type){
     case GET_WALLET_DONE:
       return {
         ...state,
-        ...action.payload /*id balance network*/
+        ...payload /*id balance*/
       };
-    case GET_WALLET_FAILED:
+    case BUY_TOKEN_DONE:
       return {
         ...state,
-        ...action.payload /*balance network*/
-      };
-    case BUY_TOKENS_DONE:
-      return {
-        ...state,
-        ...action.payload /*balance*/
+        ...payload /*balance*/
       };
     default:
       return state;
   }
 };
 
-const tokens = (state = {}, action) => {
-  switch (action.type){
-    case GET_TOKENS_DONE:
-      return {
-        ...state,
-        ...action.payload /*totalsupply maxsupply rate*/
-      };
-    case BUY_TOKENS_DONE:
-      return {
-        ...state,
-        ...action.payload /*totalsupply*/
-      };
-    default:
-      return state;
-  }
-};
-
-const contract = (state = {}, action) => {
-  switch (action.type){
+const contract = (state = {}, {type, payload}) => {
+  switch (type){
     case GET_CONTRACT_DONE:
-      return action.payload.contract;
+      return payload; /*contract object*/
     case GET_CONTRACT_FAILED:
-      return action.payload.contract;
+      return payload; /*false*/
     default:
       return state;
   }
 };
 
-const web3 = (state = {}, action) => {
-  switch (action.type){
+const web3 = (state = {}, {type, payload}) => {
+  switch (type){
     case GET_WEB3_DONE:
-      return action.payload.web3;
+      return payload; /*web3 object*/
     default:
       return state;
   }
 };
 
-const appInitialized = (state = false, action) => {
-  switch (action.type){
+const appInitialized = (state = false, {type}) => {
+  switch (type){
     case INITIALIZE_APP:
       return true;
     default:
@@ -75,22 +71,22 @@ const appInitialized = (state = false, action) => {
   }
 };
 
-const txStatus = (state = {}, action) => {
-  switch (action.type){
-    case BUY_TOKENS_DONE:
+const txStatus = (state = {}, {type, payload}) => {
+  switch (type){
+    case BUY_TOKEN_DONE:
       return {
         success: true,
         pending: false,
-        amount: action.payload.amount,
+        amount: payload.amount,
         msg: 'transaction succeeded!'
       };
-    case BUY_TOKENS_FAILED:
+    case BUY_TOKEN_FAILED:
     return {
       success: false,
       pending: false,
       msg: 'transaction failed'
     };
-    case BUY_TOKENS:
+    case BUY_TOKEN:
     return {
       success: null,
       pending: true,
@@ -102,7 +98,7 @@ const txStatus = (state = {}, action) => {
 };
 
 const rootReducer = combineReducers({
-  form, tokens, wallet, contract, web3, txStatus, appInitialized
+  form, token, wallet, contract, web3, txStatus, appInitialized
 });
 
 export default rootReducer;

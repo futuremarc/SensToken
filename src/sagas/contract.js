@@ -17,18 +17,18 @@ const getContract = (web3) => {
   }
   /*truffle-contract work around end*/
 
-  return contract.deployed()
-  .then(instance => instance)
-  .catch(error => error);
+  if (!window.navigator.onLine) return false /*for dev: if offline dont construct contract it will hang*/
+  return contract.deployed().then(instance => instance).catch(error => error);
 };
 
 function* callGetContract() {
   const web3 = yield select(web3Selector);
-  let contract = yield call(getContract, web3);
+  const contract = yield call(getContract, web3);
   if (contract.address){
-    yield put({ type: GET_CONTRACT_DONE, payload : {contract} });
-  } else{
-    yield put({ type: GET_CONTRACT_FAILED, payload : {contract} });
+    yield put({ type: GET_CONTRACT_DONE, payload : contract });
+  }
+  else{
+    yield put({ type: GET_CONTRACT_FAILED, payload : contract });
   }
 };
 

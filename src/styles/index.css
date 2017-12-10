@@ -1,5 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:light,medium,bold');
+/*inject this import with react-jss in App component instead*/
+@import url(
+  'https://fonts.googleapis.com/css?family=Montserrat:light,medium,bold'
+  );
 
-#root{
-  height: 100%;
+body {
+  background-color: #f2f2f2; /*let App componenet fill to #root instead */
+}
+
+#root {
+  height: 100%; /*this should be the only css rule*/
 }

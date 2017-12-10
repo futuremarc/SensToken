@@ -22,7 +22,8 @@ function* callGetWallet() {
    /*balance contains error msg on fail*/
   if (isNaN(Number(balance))) {
     yield put({ type: GET_WALLET_FAILED, payload : balance });
-  }else{
+  }
+  else{
     const wallet = {balance, id};
     yield put({ type: GET_WALLET_DONE, payload : wallet });
   }
