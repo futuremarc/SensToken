@@ -14,8 +14,8 @@ const styles = {
   body: {
     paddingLeft: '5%',
     paddingRight: '5%',
-    height: '100%',
-    position: 'absolute',
+    height: '68%',
+    position: 'relative',
     top: '0',
     width: '100%',
     display: 'flex',

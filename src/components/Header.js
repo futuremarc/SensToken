@@ -48,13 +48,20 @@ const styles = theme => ({
   title: {
     display: 'inline-block',
     fontSize: '3.5em',
-    padding: '35px 5px 10px 45px'
+    padding: '35px 5px 10px 45px',
+    '@media only screen and (max-height: 615px)': {
+      // display: 'none'
+
+    }
   },
   subTitle: {
     display: 'inline',
     fontSize: '1.5em',
     fontWeight: '300',
-    color: '#aeaeae'
+    color: '#aeaeae',
+    '@media only screen and (max-height: 615px)': {
+      // display: 'none'
+    }
   },
   login: {
     position: 'absolute',
