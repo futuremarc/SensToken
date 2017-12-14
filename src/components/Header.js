@@ -43,6 +43,7 @@ Header.propTypes = {
 const styles = theme => ({
   header: {
     height: '140px',
+    paddingTop: '8px',
     minWidth: '600px'
   },
   title: {
