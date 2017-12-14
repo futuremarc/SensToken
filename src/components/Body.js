@@ -12,8 +12,18 @@ const Body = (props) => (
 
 const styles = {
   body: {
-    marginLeft: '5%',
-    marginRight: '5%'
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    height: '100%',
+    position: 'absolute',
+    top: '0',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    '@media only screen and (max-width: 915px)': {
+      display: 'block'
+    }
   }
 };
 
