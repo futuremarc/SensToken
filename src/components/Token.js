@@ -68,7 +68,8 @@ const styles = theme => ({
   token: {
     lineHeight: '1.5em',
     width: '60%',
-    height: '450px',
+    minHeight: '450px',
+    height: '75%',
     marginRight: '15px',
     display: 'inline-block',
     wordWrap: 'break-word',

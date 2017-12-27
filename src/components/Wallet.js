@@ -102,7 +102,8 @@ const styles = theme => ({
   },
   wallet: {
     width: '35%',
-    height: '450px',
+    minHeight: '450px',
+    height: '75%',
     display: 'inline-block',
     wordWrap: 'break-word',
     paddingTop: '65px',
